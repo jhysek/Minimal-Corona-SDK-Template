@@ -1,0 +1,62 @@
+settings = {
+  orientation = {
+    -- http://docs.coronalabs.com/guide/distribution/buildSettings/index.html#orientation
+    default = "Portrait",
+    content = {"Portrait", "portraitUpsideDown"},
+    supported = { "Portrait", "portraitUpsideDown" }
+  },
+
+  iphone = {
+    -- http://docs.coronalabs.com/guide/distribution/buildSettings/index.html#iOSsettings
+    plist = {
+      UIViewControllerBasedStatusBarAppearance = false,
+      UIStatusBarHidden = true,
+      UIPrerenderedIcon = false, -- set to false for "shine" overlay
+
+      CFBundleLocalizations =
+      {
+        "English",
+      },
+
+      -- http://docs.coronalabs.com/guide/distribution/buildSettings/index.html#appicons
+      CFBundleIconFiles = {
+        "Icon.png",
+        "Icon@2x.png",
+        "Icon-60.png",
+        "Icon-60@2x.png",
+        "Icon-60@3x.png",
+        "Icon-72.png",
+        "Icon-72@2x.png",
+        "Icon-76.png",
+        "Icon-76@2x.png",
+        "Icon-Small-40.png",
+        "Icon-Small-40@2x.png",
+        "Icon-Small-40@3x.png",
+        "Icon-Small-50.png",
+        "Icon-Small-50@2x.png",
+        "Icon-Small.png",
+        "Icon-Small@2x.png",
+        "Icon-Small@3x.png"
+      },
+    }
+  },
+
+  android =
+  {
+    usesPermissions =
+    {
+      -- http://developer.android.com/reference/android/Manifest.permission.html
+      "android.permission.INTERNET",
+      "android.permission.ACCESS_NETWORK_STATE",
+    },
+  },
+
+  excludeFiles = {
+    -- Exclude all Android icon files and .ogg files in the "music" directory:
+    iphone = { "Icon-*dpi.png", "music/*.ogg" },
+
+    -- Exclude iOS "retina" image files and .m4a files in the "music" directory:
+    android = { "Icon.png", "*@2x.png", "*@3x.png", "music/*.m4a" }
+  }
+}
+

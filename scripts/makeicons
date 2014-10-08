@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Android icons ############################################
+convert -resize 72 icon.png Icon-hdpi.png
+convert -resize 48 icon.png Icon-mdpi.png
+convert -resize 36 icon.png Icon-ldpi.png
+
+# iOS icons ################################################
+convert -resize 57 icon.png Icon-57.png
+convert -resize 114 icon.png Icon-57@2x.png
+
+convert -resize 60 icon.png Icon-60.png
+convert -resize 120 icon.png Icon-60@2x.png
+convert -resize 180 icon.png Icon-60@3x.png
+
+convert -resize 76 icon.png Icon-76.png
+convert -resize 152 icon.png Icon-76@2x.png
+
+convert -resize 40 icon.png Icon-Small-40.png
+convert -resize 80 icon.png Icon-Small-40@2x.png
+convert -resize 120 icon.png Icon-Small-40@3x.png
+
+convert -resize 72 icon.png Icon-72.png
+convert -resize 144 icon.png Icon-72@2x.png
+
+convert -resize 50 icon.png Icon-Small-50.png
+convert -resize 100 icon.png Icon-Small-50@2x.png
+
+convert -resize 29 icon.png Icon-Small.png
+convert -resize 58 icon.png Icon-Small@2x.png
+convert -resize 87 icon.png Icon-Small@3x.png
+
+convert -resize 114 icon.png Icon@2x.png
+convert -resize 47 icon.png Icon.png
+
+
