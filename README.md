@@ -15,3 +15,4 @@ Minimal Corona SDK template. It contains only what I'm using almost in all Coron
 - lib/inspect.lua - useful library by http://github.com/kikito/inspect.lua for debugging purposes
 - scripts/makeicons - script for converting icon.png into all icon sizes for iOS and Android
 
+This content is released under the MIT License.
