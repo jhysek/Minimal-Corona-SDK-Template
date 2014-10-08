@@ -52,6 +52,8 @@ settings = {
   },
 
   excludeFiles = {
+    all = { "lib/inspect.lua", "scripts/*" },
+
     -- Exclude all Android icon files and .ogg files in the "music" directory:
     iphone = { "Icon-*dpi.png", "music/*.ogg" },
 
