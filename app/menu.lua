@@ -1,19 +1,26 @@
-local scene = storyboard.newScene()
+local composer = require( "composer" )
+local scene = composer.newScene()
 
-function scene:willEnterScene(event)
-  group = self.view
+function scene:show(event)
+  local group = self.view
+  if ( event.phase == "will" ) then
+
+  end
 end
 
-function scene:createScene(event)
-  group = self.view
+function scene:create(event)
+  local group = self.view
 end
 
-function scene:willExitScene(event)
-  group = self.view
+function scene:hide(event)
+  local group = self.view
+  if ( event.phase == "will" ) then
+
+  end
 end
 
-scene:addEventListener( "createScene", scene)
-scene:addEventListener( "willEnterScene", scene)
-scene:addEventListener( "willExitScene", scene)
+scene:addEventListener( "create", scene)
+scene:addEventListener( "show", scene)
+scene:addEventListener( "hide", scene)
 
 return scene

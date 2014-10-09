@@ -1,4 +1,4 @@
-storyboard = require("storyboard")
+local composer = require("composer")
 
 _W = display.contentWidth
 _H = display.contentHeight
@@ -10,4 +10,4 @@ _L = display.screenOriginX
 _R = _L + _AW
 
 display.setStatusBar( display.HiddenStatusBar )
-storyboard.gotoScene("app.menu")
+composer.gotoScene("app.menu")
