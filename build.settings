@@ -1,9 +1,9 @@
 settings = {
   orientation = {
     -- http://docs.coronalabs.com/guide/distribution/buildSettings/index.html#orientation
-    default = "Portrait",
-    content = {"Portrait", "portraitUpsideDown"},
-    supported = { "Portrait", "portraitUpsideDown" }
+    default = "portrait",
+    content = {"portrait", "portraitUpsideDown"},
+    supported = { "portrait", "portraitUpsideDown" }
   },
 
   iphone = {
