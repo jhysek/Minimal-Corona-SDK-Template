@@ -6,6 +6,12 @@ settings = {
     supported = { "portrait", "portraitUpsideDown" }
   },
 
+  plugins =
+  {
+    ["plugin.google.play.services"] = { publisherId = "com.coronalabs" },
+  },
+
+
   iphone = {
     -- http://docs.coronalabs.com/guide/distribution/buildSettings/index.html#iOSsettings
     plist = {
@@ -15,6 +21,7 @@ settings = {
 
       CFBundleLocalizations =
       {
+        "Czech",
         "English",
       },
 

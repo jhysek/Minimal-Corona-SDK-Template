@@ -1,5 +1,4 @@
-local composer = require("composer")
-
+------------------------------------------------------------
 _W = display.contentWidth
 _H = display.contentHeight
 _AW = display.actualContentWidth
@@ -10,4 +9,35 @@ _L = display.screenOriginX
 _R = _L + _AW
 
 display.setStatusBar( display.HiddenStatusBar )
-composer.gotoScene("app.menu")
+display.setDefault("background", 1, 1, 1)
+------------------------------------------------------------
+
+
+inspect = require "lib.inspect"
+
+require "lib.settings"
+require "app.db.schema"
+
+appconfig = loadTable("config/config.json", system.ResourceDirectory) or {}
+
+require "lib.set_language"
+T = require("app.locales")
+
+setLanguage()
+
+require "lib.Ads"
+
+
+local composer = require("composer")
+composer.gotoScene("app.dashboard")
+
+ Runtime:addEventListener('key', function (event)
+   if event.keyName == 's' and event.phase == 'down' then
+     local scene = composer.getScene(composer.getSceneName("current"))
+     if scene and scene.view then
+       print("SAVING TO " .. display.pixelWidth .. 'x' .. display.pixelHeight .. '_' .. math.floor(system.getTimer()) .. '.png')
+       display.save(scene.view, display.pixelWidth .. 'x' .. display.pixelHeight .. '_' .. math.floor(system.getTimer()) .. '.png')
+       return true
+     end
+   end
+ end)
