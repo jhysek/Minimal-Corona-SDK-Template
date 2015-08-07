@@ -36,17 +36,30 @@ local function onRowRender(event)
     local bg = display.newRect(row, _W / 2, 30, _AW, 60)
     bg:setFillColor(0,0,0,0.1)
 
-    local legend = display.newText
-    {
-      parent = row,
-      x = _W / 2,
-      y = 30,
-      font = native.systemFont,
-      fontSize = 14,
-      text = "Lov           Lovec                 Trofej            Bodů    Medaile",
-      align = "left"
+    local legend_fields = {
+      {T:t("dashboard.date"), _L + 10},
+      {T:t("dashboard.hunter"), _L + 70},
+      {T:t("dashboard.trophy"), _L + _AW / 2 + 10},
+      {T:t("dashboard.points"), _L + _AW / 4 * 3 - 10},
+      {T:t("dashboard.medal"), _R - 50},
     }
-    legend:setFillColor(0,0,0)
+
+    for i = 1, #legend_fields do
+      local field = legend_fields[i]
+      local legend = display.newText
+      {
+        parent = row,
+        x = field[2],
+        y = 30,
+        width = _AW,
+        font = native.systemFont,
+        fontSize = 13,
+        text = field[1],
+        align = "left"
+      }
+      legend.anchorX = 0
+      legend:setFillColor(0,0,0)
+    end
   else
 
     local dateBg = display.newRect(row, 30, 30, 58, 58)
@@ -79,7 +92,7 @@ local function onRowRender(event)
 
     local section = display.newText({
       y = 30,
-      x = _L + 175,
+      x = _L + _AW / 2 + 10,
       text = T:t("title." .. rating.animal),
       font = native.systemFont,
       fontSize = 13,
@@ -92,20 +105,20 @@ local function onRowRender(event)
 
     local points = display.newText({
       y = 30,
-      x = _L + 255,
+      x = _L + _AW / 4 * 3 + 15,
       text = rating.rating,
       font = native.systemFont,
       fontSize = 13,
-      width = 60,
-      align = "left",
+      width = 50,
+      align = "right",
       parent = row
     })
-    points.anchorX = 0
+    points.anchorX = 1
     points:setFillColor(0,0,0)
 
     if rating.medal and rating.medal ~= 'none' then
       local medal = display.newImage(row, "assets/" .. rating.medal .. ".png", _R - 30, 30)
-      local factor = Utils.fitScaleFactor(medal, 50, 50)
+      local factor = Utils.fitScaleFactor(medal, 35, 35)
       medal:scale(factor, factor)
     end
 
@@ -120,10 +133,8 @@ local function redrawList(group)
     list:removeSelf()
   end
 
-  print("BANNER HEIGHT: " .. banner_height)
-
   list = widget.newTableView({
-    top = navigationBar.bottom,
+    top = navigationBar.bottom - 2,
     width = _AW,
     height = _AH - navigationBar.height - 120 - banner_height,
     onRowRender = onRowRender

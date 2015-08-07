@@ -2,7 +2,6 @@ local json = require "json"
 
 local translations = loadTable("config/texts.json", system.ResourceDirectory) or {}
 
-print(inspect(translations))
 local default_language = "cs"
 
 function translations:t(text)

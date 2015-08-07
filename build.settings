@@ -6,7 +6,8 @@ settings = {
     supported = { "portrait", "portraitUpsideDown" }
   },
 
-  plugins =
+
+ plugins =
   {
     ["plugin.google.play.services"] = { publisherId = "com.coronalabs" },
   },

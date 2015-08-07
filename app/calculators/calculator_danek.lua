@@ -61,13 +61,13 @@ function Calculator:compute()
   body[11]      = vypoctene[11]
 
   vypoctene[12] = inp.f19 / vypoctene[1]
-  if vypoctene[12] >= 0.85 then body[11] = 0 end
-  if vypoctene[12] < 0.85 then body[11] = 1 end
-  if vypoctene[12] < 0.80 then body[11] = 2 end
-  if vypoctene[12] < 0.75 then body[11] = 3 end
-  if vypoctene[12] < 0.70 then body[11] = 4 end
-  if vypoctene[12] < 0.65 then body[11] = 5 end
-  if vypoctene[12] < 0.60 then body[11] = 6 end
+  if vypoctene[12] >= 0.85 then body[12] = 0 end
+  if vypoctene[12] < 0.85 then body[12] = 1 end
+  if vypoctene[12] < 0.80 then body[12] = 2 end
+  if vypoctene[12] < 0.75 then body[12] = 3 end
+  if vypoctene[12] < 0.70 then body[12] = 4 end
+  if vypoctene[12] < 0.65 then body[12] = 5 end
+  if vypoctene[12] < 0.60 then body[12] = 6 end
 
   vypoctene[13] = inp.f20
   body[13]      = vypoctene[13]
@@ -83,6 +83,7 @@ function Calculator:compute()
     self.kladne = self.kladne + body[i]
   end
 
+  self.zaporne = 0
   for i = 12, 15 do
     self.zaporne = self.zaporne + body[i]
   end

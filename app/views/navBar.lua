@@ -118,6 +118,7 @@ function navBar.create(options)
   local bg_color  = options.bg_color or navBar.defaults.bg_color
 
   local bg = display.newRect(bar, _W / 2, _T, _W, bar_height + 5)
+  bg:addEventListener("tap", function(e) return true end)
   bg.anchorY = 0
   Color.setFillHexColor(bg, appconfig.main_color)
 

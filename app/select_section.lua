@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 local composer = require "composer"
 local widget   = require "widget"
-local store    = require "store"
+-- local store    = require "store"
 
 local NavBar   = require "app.views.navBar"
 local ListItem = require "app.views.listItem"
@@ -19,12 +19,19 @@ local function doPurchase()
   ads.hide()
 
   Setting:delete()
-  Setting:insert({ premium = true })
+  Setting:insert({ premium = 1 })
 
   premium = true
   banner_height = 0
-  list.height = _AH - navigationBar.height - 60
+  list.height = _AH - navigationBar.height
+  list.top = navigationBar.bottom
+  list:reloadData()
+  list:scrollToY({ y = 0 })
+
+  navigationBar:toFront()
   buttonGroup.isVisible = false
+
+  return true
 end
 
 local function storeTransaction( event )
@@ -51,19 +58,19 @@ local function storeTransaction( event )
     print("unknown event")
   end
 
-  store.finishTransaction( transaction )
+  -- store.finishTransaction( transaction )
 end
 
 local function tryPurchase()
   if (system.getInfo( "platfromName" ) == "Android") then
-    store.purchase( { appconfig.inapp_code.android })
+    -- store.purchase( { appconfig.inapp_code.android })
   else
-    store.purchase( { appconfig.inapp_code.ios })
+    -- store.purchase( { appconfig.inapp_code.ios })
   end
 end
 
 local function tryRestorePurchase()
-  store.restore()
+  -- store.restore()
 end
 --------------------------------------------------------------------------------
 
@@ -74,9 +81,9 @@ local function onRowRender(event)
 
   local color = "#000000"
   local lock  = nil
-  if not row.params.free then
+  if not row.params.free and not premium then
     color = "#777777"
-    lock  = "🔒"
+    lock  = "aktivovat"
   end
 
   local item = ListItem:new({
@@ -93,7 +100,7 @@ end
 local function onRowTouch(event)
   local row = event.row
 
-  if row.params.free then
+  if row.params.free or premium then
     composer.gotoScene("app.new_rating_step_1", { effect = "slideLeft", params = row.params })
   else
     tryPurchase()
@@ -110,12 +117,12 @@ function scene:create(event)
   group:insert(navigationBar)
 
   if not premium then
-    store.init(storeTransaction)
+   -- store.init(storeTransaction)
 
     buttonGroup = display.newGroup()
     group:insert(buttonGroup)
 
-    activateBtn = Button:new(buttonGroup, _B - 40, T:t("select_section.activate_all"), "main", tryPurchase, (_AW - 60) / 2, _L + _AW / 2 - (_AW - 60) / 4 - 10)
+    activateBtn = Button:new(buttonGroup, _B - 40, T:t("select_section.activate_all"), "main", doPurchase, (_AW - 60) / 2, _L + _AW / 2 - (_AW - 60) / 4 - 10)
     restoreBtn  = Button:new(buttonGroup, _B - 40, T:t("select_section.restore_purchases"), "gray", tryRestorePurchase, (_AW - 60) / 2, _L + _AW / 2 + (_AW - 60) / 4 + 10)
 
     buttonGroup.y = - banner_height

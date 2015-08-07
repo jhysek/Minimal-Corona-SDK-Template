@@ -5,6 +5,7 @@
 --
 -- V podkladech je zvlast syka dybowskeho a sika japonsky, ale vypocty jsou uplne stejne.
 --------------------------------------------------------------------------------
+local class          = require "lib.middleclass"
 local CalculatorSika = require "app.calculators.calculator_sika"
 
 return class("Calculator", CalculatorSika)

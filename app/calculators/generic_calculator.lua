@@ -9,7 +9,9 @@ function GenericCalculator:initialize(inputs)
   self.outputs = {}
   self.inputs = {}
   for key, value in pairs(inputs) do
-    self.inputs[key] = tonumber(string.gsub(value, ",", "."), 10)
+    if type(value) == "string" then
+      self.inputs[key] = tonumber(string.gsub(value, ",", "."), 10)
+    end
   end
 end
 

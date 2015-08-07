@@ -1,12 +1,14 @@
 --------------------------------------------------------------------------------
 local composer = require "composer"
 local NavBar   = require "app.views.navBar"
-local Form     = require "app.views.form"
+local Form     = require "app.views.gridForm"
+-- local Form     = require "app.views.form"
 local Message  = require "app.views.message"
 --------------------------------------------------------------------------------
 local scene = composer.newScene()
 local navigationBar
 local form
+local formGroup
 
 local function prepareFormDefinition(params)
   local code = params.code
@@ -17,8 +19,11 @@ local function prepareFormDefinition(params)
   for i = 1, #fields do
     local field = fields[i]
 
-    field.label = T:t(params.code .. ".fields." .. field.name)
-    field.validations = { presence = true, numeric = true }
+    field.label = T:t((params.translation_code or params.code) .. ".fields." .. field.name)
+    if field.type ~= 'boolean' then
+      field.validations = { presence = true, numeric = true }
+      field.input_type = "number"
+    end
     result[#result + 1] = field
   end
 
@@ -26,7 +31,7 @@ local function prepareFormDefinition(params)
     type = "button",
     name = "submit",
     label = T:t("new_rating_step_1.submit"),
-    onTap = function() form:submit() end
+    onTap = function() form:submit() end,
   }
 
   return result
@@ -35,11 +40,15 @@ end
 function scene:create(event)
   local group = self.view
 
+  formGroup = display.newGroup()
+  group:insert(formGroup)
+
   navigationBar = NavBar.create({
     title   = T:t("new_rating_step_1.title"),
     backBtn = { title = T:t("nav.back"), scene = "app.select_section" },
   })
   group:insert(navigationBar)
+
 end
 
 function scene:show(event)
@@ -57,7 +66,7 @@ function scene:show(event)
       end
 
       if event.params then
-        form = Form:new(group, prepareFormDefinition(event.params), { height = _AH - navigationBar.height - banner_height })
+        form = Form:new(formGroup, prepareFormDefinition(event.params), { height = _AH - navigationBar.height - banner_height })
         form.group.y = _T + 65
 
         form.onSubmit = function(values)
@@ -82,7 +91,7 @@ function scene:show(event)
           Message.toast(T:t("new_rating_step_1.validation_failed"))
         end
 
-        group:insert(form.group)
+        formGroup:insert(form.group)
       end
     end
   end

@@ -54,11 +54,11 @@ function Calculator:compute()
   body[9]      = vypoctene[9]
 
   vypoctene[9] = inp.f9 / inp.f14
-  if vypoctene[0] < 2.5 then
+  if vypoctene[1] < 2.5 then
     body[10] = 0
-  elseif vypoctene[0] < 2.7 then
+  elseif vypoctene[1] < 2.7 then
     body[10] = 1
-  elseif vypoctene[0] < 2.9 then
+  elseif vypoctene[1] < 2.9 then
     body[10] = 2
   else
     body[10] = 3
@@ -69,7 +69,7 @@ function Calculator:compute()
     self.kladne = self.kladne + body[i]
   end
 
-  self.zaporne = body[10] + body[11]
+  self.zaporne = body[10] -- + body[11]   TODO: v podkladech je to takto i kdyz se body[11] (v podkladech body[10]) neprirazuju a jsou vzdy 0
   self.soucet  = self.kladne - self.zaporne
 
   if self.soucet < 185 then

@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 local composer = require "composer"
 local NavBar   = require "app.views.navBar"
-local Form     = require "app.views.form"
+local Form     = require "app.views.gridForm"
 local Message  = require "app.views.message"
 --------------------------------------------------------------------------------
 local scene = composer.newScene()

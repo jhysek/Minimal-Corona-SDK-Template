@@ -29,7 +29,7 @@ function Input:initialize(parent, left, top, width, options)
   if options.inputFillColor then
     Color.setFillHexColor(border, options.inputFillColor)
   else
-    border:setFillColor(1, 1, 1, 1)
+    border:setFillColor(0, 0, 0, 0.07)
   end
   border.strokeWidth = 0
   border:addEventListener("tap", function()
@@ -51,6 +51,10 @@ function Input:initialize(parent, left, top, width, options)
   else
     self.nativeInput = native.newScaledTextField(-6, 3, width - 10, 13)
   end
+  if options.input_type then
+    self.nativeInput.inputType = options.input_type
+  end
+
   self.nativeInput.text = self.options.value
   self.nativeInput.hasBackground = false
   self.nativeInput:addEventListener( "userInput", function(e) self:keybordInputHandler(e) end)
@@ -125,7 +129,11 @@ function Input:hideKeyboard()
     native.keyboardFocus = nil
 
     if self.screenGroup and self.screenGroup.moveUp then
-      self.uptransition = transition.to(self.screenGroup, { time = 200, y = self.screenGroup.originalY} )
+      if self.options.scrollView then
+        self.options.scrollView:scrollToPosition({ y = 0, time = 200 })
+      else
+        self.uptransition = transition.to(self.screenGroup, { time = 200, y = self.screenGroup.originalY} )
+      end
     end
   end
 
@@ -160,10 +168,17 @@ function Input:setFocus()
         self.uptransition = nil
       end
 
-      self.downtransition = transition.to(self.screenGroup, {
-        y = (self.screenGroup.originalY or self.screenGroup.y) - self.screenGroup.moveUp,
-        time = 200,
-        onComplete = function() self.downtransition = nil end })
+      if self.options.scrollView then
+        -- local actual_x, actual_y = self.options.scrollView:getContentPosition()
+        local new_position =  _H / 2 + 50
+
+        self.options.scrollView:scrollToPosition({ y = new_position, time = 200 })
+      else
+        self.downtransition = transition.to(self.screenGroup, {
+          y = (self.screenGroup.originalY or self.screenGroup.y) - self.screenGroup.moveUp,
+          time = 200,
+          onComplete = function() self.downtransition = nil end })
+        end
       end
 
       if self.onStartEditing then
@@ -208,8 +223,10 @@ function Input:setFocus()
 
   function Input:setErrorMode()
     self.errorMode = true
-    self.border:setStrokeColor(1, 0, 0, 1)
-    self.border:setFillColor(1, 0, 0, 0.02)
+    if self.border then
+      self.border:setStrokeColor(1, 0, 0, 1)
+      self.border:setFillColor(1, 0, 0, 0.02)
+    end
     if self.label then
       self.label:setFillColor(1, 0, 0)
     end
