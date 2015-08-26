@@ -195,7 +195,7 @@ function Form:renderItem(event)
       value_align = self.options.value_align,
       value_padding_right = self.options.value_padding_right,
       value_font_size = self.options.value_font_size,
-      -- scrollView = self.fieldList.scrollView
+      gridView = self.fieldList,
       input_type = field.input_type
     })
     self.inputs[field.name] = input

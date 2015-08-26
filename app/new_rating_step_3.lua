@@ -1,5 +1,7 @@
 --------------------------------------------------------------------------------
 local composer = require "composer"
+local Xml      = require "app.services.xml_generator"
+local Server   = require "app.services.server"
 local NavBar   = require "app.views.navBar"
 local Message  = require "app.views.message"
 local Form     = require "app.views.form"
@@ -12,16 +14,16 @@ local values
 local back_params
 local calculator
 local code
+local backBtn
 
 local function publish()
 
-  Rating:insert({
-    date = values.date,
-    hunter = values.hunter,
-    animal = code,
-    rating = calculator.soucet,
-    medal = calculator.medal
-  })
+  if appconfig.api_server then
+    local xml = Xml.generate(code, calculator, values)
+    timer.performWithDelay(20, function()
+      Server.publish(xml)
+    end)
+  end
 
   composer.gotoScene("app.dashboard", {
     effect = "slideDown"
@@ -36,8 +38,6 @@ function scene:create(event)
     backBtn = { title = T:t("nav.back"), scene = "app.new_rating_step_2", params = { without_reloading = true }},
   })
   group:insert(navigationBar)
-
-  local publishBtn = Button:new(group, _B - 40 - banner_height, T:t("new_rating_step_3.publish"), "main", publish, _AW - 40)
 end
 
 local function prepareFormData(params)
@@ -69,6 +69,14 @@ function scene:show(event)
       calculator = event.params.calculator
       back_params = event.params.back_params
 
+      Rating:insert({
+        date = values.date,
+        hunter = values.hunter,
+        animal = code,
+        rating = calculator.soucet,
+        medal = calculator.medal
+      })
+
       if form then
         form:removeSelf()
       end
@@ -87,6 +95,16 @@ function scene:show(event)
         if event.params.calculator and event.params.calculator.medal ~= "none" then
         end
       end
+    end
+
+    if backBtn then
+      backBtn:removeSelf()
+    end
+
+    if appconfig.api_server then
+      backBtn = Button:new(group, _B - 40 - banner_height, T:t("new_rating_step_3.publish"), "main", publish, _AW - 40)
+    else
+      backBtn = Button:new(group, _B - 40 - banner_height, T:t("new_rating_step_3.back"), "main", publish, _AW - 40)
     end
   end
 end

@@ -32,7 +32,7 @@ function GridView:initialize(parent, x, y, width, height, options)
     width = self.width,
     height = self.height,
     horizontalScrollDisabled = self.options.horizontalScrollDisabled,
-    verticalScrollDisabled = self.options.verticalScrollDisabled
+    verticalScrollDisabled = self.options.verticalScrollDisabled,
   })
   self.displayObject = self.scrollView
   self.parent:insert(self.scrollView)
@@ -63,9 +63,15 @@ function GridView:insert(itemGroup)
   self.items[#self.items + 1] = itemGroup
 end
 
+function GridView:scrollRelative(offset)
+  local ex, ey = self.scrollView:getContentPosition()
+  self.scrollView:scrollToPosition({ y = ey + offset })
+end
+
 function GridView:redraw()
   display.remove(self.scrollView)
   self.scroscrollView = nil
+  self.list_y = 0
   self.scrollView = widget.newScrollView({
     x = self.x,
     y = self.y,
@@ -98,7 +104,15 @@ function GridView:redraw()
 
       self.scrollView:insert(itemContainer)
     end
+
   end
+
+  local y = math.floor(#self.items / columns) * (self.options.item_height + self.options.padding)
+  local padding = display.newRect(0, y, self.options.item_width, _H / 2)
+  padding.anchorX = 0
+  padding.anchorY = 0
+  self.scrollView:insert(padding)
+
 end
 
 return GridView

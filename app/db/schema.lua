@@ -10,6 +10,11 @@ Rating = db:newModel("ratings", {
   "medal"
 })
 
+Purchase = db:newModel("purchases", {
+  "product",
+  "date"
+})
+
 Setting = db:newModel("settings", {
   "premium"
 })

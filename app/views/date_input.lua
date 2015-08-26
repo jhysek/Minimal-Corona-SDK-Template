@@ -30,7 +30,6 @@ end
 
 function DateInput:onAccept()
   local values = self.datePicker:getValues()
-  print(inspect(values))
   self.input_value = values[1].value .. ". " .. values[2].index .. ". " .. values[3].value
   display.remove(self.pickerGroup)
 
@@ -44,8 +43,9 @@ end
 
 function DateInput:setFocus()
   self.pickerGroup = display.newGroup()
+  self.pickerGroup.y = _T + 60
 
-  local overlay = display.newRect(self.pickerGroup, _W / 2, _H / 2, _AW, _AH)
+  local overlay = display.newRect(self.pickerGroup, _W / 2, _H / 2 - 60, _AW, _AH)
   overlay:setFillColor(0,0,0, 0.8)
   overlay:addEventListener("tap", function() self:cancel() end)
 

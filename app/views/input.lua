@@ -127,14 +127,6 @@ function Input:hideKeyboard()
   if native.keyboardFocus == self.nativeInput then
     native.setKeyboardFocus(nil)
     native.keyboardFocus = nil
-
-    if self.screenGroup and self.screenGroup.moveUp then
-      if self.options.scrollView then
-        self.options.scrollView:scrollToPosition({ y = 0, time = 200 })
-      else
-        self.uptransition = transition.to(self.screenGroup, { time = 200, y = self.screenGroup.originalY} )
-      end
-    end
   end
 
   if self.onFinishEditing then
@@ -158,116 +150,98 @@ function Input:setFocus()
 
     self.belowScreenHalf = diff + yAbsPos - _H / 2
     if self.belowScreenHalf + 10 > 0 and self.screenGroup then
-      self.screenGroup.moveUp = diff + yAbsPos - _H / 2 + 50
+      if self.options.gridView then
+        self.options.gridView:scrollRelative(math.min(- self.belowScreenHalf, 0))
+      end
+
+      if self.onStartEditing then
+        self.onStartEditing()
+      end
+    end
+  end
+end
+
+function Input:keybordInputHandler(event)
+  -- zacatek editace ---------------------------------------
+  if ( "began" == event.phase ) then
+    print("BEGAN")
+    self.valueText.isVisible = false
+
+    local xAbsPos, yAbsPos = self.nativeInput:localToContent(0,0)
+    self.belowScreenHalf = yAbsPos - _H / 2
+
+    if self.belowScreenHalf + 10 > 0 and self.screenGroup then
       if not self.screenGroup.originalY then
         self.screenGroup.originalY = self.screenGroup.y
       end
 
-      if self.uptransition then
-        transition.cancel(self.uptransition)
-        self.uptransition = nil
-      end
-
-      if self.options.scrollView then
-        -- local actual_x, actual_y = self.options.scrollView:getContentPosition()
-        local new_position =  _H / 2 + 50
-
-        self.options.scrollView:scrollToPosition({ y = new_position, time = 200 })
-      else
-        self.downtransition = transition.to(self.screenGroup, {
-          y = (self.screenGroup.originalY or self.screenGroup.y) - self.screenGroup.moveUp,
-          time = 200,
-          onComplete = function() self.downtransition = nil end })
-        end
-      end
-
-      if self.onStartEditing then
-        self.onStartEditing()
-      end
+      self.moveUp = yAbsPos - _H / 2 + 30
+      -- transition.to(self.screenGroup, { y = self.screenGroup.y - self.moveUp, time = 200 })
     end
-  end
 
-  function Input:keybordInputHandler(event)
-    -- zacatek editace ---------------------------------------
-    if ( "began" == event.phase ) then
-      print("BEGAN")
-      self.valueText.isVisible = false
-
-      local xAbsPos, yAbsPos = self.nativeInput:localToContent(0,0)
-      self.belowScreenHalf = yAbsPos - _H / 2
-      print(self.belowScreenHalf + 10)
-      if self.belowScreenHalf + 10 > 0 and self.screenGroup then
-        if not self.screenGroup.originalY then
-          self.screenGroup.originalY = self.screenGroup.y
-        end
-
-        self.moveUp = yAbsPos - _H / 2 + 30
-        -- transition.to(self.screenGroup, { y = self.screenGroup.y - self.moveUp, time = 200 })
-      end
-
-      if self.onStartEditing then
-        self.onStartEditing()
-      end
-
-      -- editace -----------------------------------------------
-    elseif event.phase == "editing" then
-      if self.onChange then
-        self.onChange(self:value())
-      end
-
-      -- konec editace -----------------------------------------
-    else
-      self:hideKeyboard()
+    if self.onStartEditing then
+      self.onStartEditing()
     end
-  end
 
-  function Input:setErrorMode()
-    self.errorMode = true
-    if self.border then
-      self.border:setStrokeColor(1, 0, 0, 1)
-      self.border:setFillColor(1, 0, 0, 0.02)
+    -- editace -----------------------------------------------
+  elseif event.phase == "editing" then
+    if self.onChange then
+      self.onChange(self:value())
     end
-    if self.label then
-      self.label:setFillColor(1, 0, 0)
-    end
-  end
 
-  function Input:clear()
-    self.nativeInput.text = ""
-    self.valueText.text = self.placeholder
+    -- konec editace -----------------------------------------
+  else
+    self:hideKeyboard()
   end
+end
 
-  function Input:shrink(offset)
-    if not self.shrinkOffset or self.shrinkOffset == 0 then
-      self.nativeInput.width = self.nativeInput.width - offset
-      self.nativeInput.x = self.nativeInput.x - offset / 2
-      self.border.width = self.border.width - offset
-      self.shrinkOffset = offset
-    end
+function Input:setErrorMode()
+  self.errorMode = true
+  if self.border then
+    self.border:setStrokeColor(1, 0, 0, 1)
+    self.border:setFillColor(1, 0, 0, 0.02)
   end
-
-  function Input:unshrink()
-    if self.shrinkOffset then
-      self.nativeInput.width = self.nativeInput.width + self.shrinkOffset
-      self.nativeInput.x = self.nativeInput.x + self.shrinkOffset / 2
-      self.border.width = self.border.width + self.shrinkOffset
-      self.shrinkOffset = nil
-    end
+  if self.label then
+    self.label:setFillColor(1, 0, 0)
   end
+end
 
-  function Input:moveScreenUp()
+function Input:clear()
+  self.nativeInput.text = ""
+  self.valueText.text = self.placeholder
+end
+
+function Input:shrink(offset)
+  if not self.shrinkOffset or self.shrinkOffset == 0 then
+    self.nativeInput.width = self.nativeInput.width - offset
+    self.nativeInput.x = self.nativeInput.x - offset / 2
+    self.border.width = self.border.width - offset
+    self.shrinkOffset = offset
   end
+end
 
-  function Input:moveScreenDown()
+function Input:unshrink()
+  if self.shrinkOffset then
+    self.nativeInput.width = self.nativeInput.width + self.shrinkOffset
+    self.nativeInput.x = self.nativeInput.x + self.shrinkOffset / 2
+    self.border.width = self.border.width + self.shrinkOffset
+    self.shrinkOffset = nil
   end
+end
 
-  function Input:value()
-    return self.nativeInput.text
-  end
+function Input:moveScreenUp()
+end
 
-  function Input:required()
-    return self.options.required
-  end
+function Input:moveScreenDown()
+end
 
-  return Input
+function Input:value()
+  return self.nativeInput.text
+end
+
+function Input:required()
+  return self.options.required
+end
+
+return Input
 

@@ -70,7 +70,6 @@ function scene:show(event)
         form.group.y = _T + 65
 
         form.onSubmit = function(values)
-          print("SUBMITTED: " .. inspect(values))
 
           local Calculator = require("app.calculators.calculator_" .. event.params.code)
           local calculator = Calculator:new(values)

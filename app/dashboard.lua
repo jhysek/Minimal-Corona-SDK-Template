@@ -133,10 +133,11 @@ local function redrawList(group)
     list:removeSelf()
   end
 
+  print("BH: " .. banner_height)
   list = widget.newTableView({
     top = navigationBar.bottom - 2,
     width = _AW,
-    height = _AH - navigationBar.height - 120 - banner_height,
+    height = _AH - navigationBar.height - 60 - banner_height,
     onRowRender = onRowRender
   })
 
@@ -165,7 +166,8 @@ function scene:show(event)
   if ( event.phase == "will" ) then
     redrawList(group)
     showAd("banner", "bottom")
-    buttonGroup.y = - banner_height
+    buttonGroup.y = _B - 40 - banner_height
+    buttonGroup:toFront()
   end
 end
 
@@ -178,9 +180,10 @@ function scene:create(event)
   group:insert(navigationBar)
 
   buttonGroup = display.newGroup()
+  buttonGroup.y = _B - 40
   group:insert(buttonGroup)
-  local newRatingBtn = Button:new(buttonGroup, _B - 40, T:t("dashboard.new"), "main", newRating, (_AW - 60) / 2, _L + _AW / 2 - (_AW - 60) / 4 - 10)
-  local aboutAppBtn = Button:new(buttonGroup, _B - 40, T:t("dashboard.about"), "main", aboutScene, (_AW - 60) / 2, _L + _AW / 2 + (_AW - 60) / 4 + 10)
+  local newRatingBtn = Button:new(buttonGroup, 0, T:t("dashboard.new"), "main", newRating, (_AW - 60) / 2, _L + _AW / 2 - (_AW - 60) / 4 - 10)
+  local aboutAppBtn = Button:new(buttonGroup, 0, T:t("dashboard.about"), "main", aboutScene, (_AW - 60) / 2, _L + _AW / 2 + (_AW - 60) / 4 + 10)
 end
 
 scene:addEventListener( "create", scene)

@@ -28,7 +28,8 @@ function BlockBtn:initialize(parent, y, text, color, onPress, width, x)
     labelColor = { default={ 1, 1, 1 }, over={ 0, 0, 0, 0.5 } },
     font = "OpenSans-Light",
     fontSize = 15,
-    onRelease = onPress
+    onRelease = onPress,
+    onPress = function(e) return true end
   })
   parent:insert(self.displayObject)
   return self.displayObject
