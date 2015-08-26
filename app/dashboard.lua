@@ -20,11 +20,8 @@ local function newRating()
 end
 
 local function aboutScene()
-  composer.gotoScene("app.webview", {
+  composer.gotoScene("app.about", {
     effect = "slideLeft",
-    params = {
-      url = T:t('about.filename')
-    }
   })
 end
 

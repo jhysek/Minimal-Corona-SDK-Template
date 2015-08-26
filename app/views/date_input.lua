@@ -42,6 +42,7 @@ function DateInput:cancel()
 end
 
 function DateInput:setFocus()
+  native.setKeyboardFocus(nil)
   self.pickerGroup = display.newGroup()
   self.pickerGroup.y = _T + 60
 
