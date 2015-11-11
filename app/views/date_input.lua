@@ -41,12 +41,16 @@ function DateInput:cancel()
   display.remove(self.pickerGroup)
 end
 
+function DateInput:orientation(event)
+  self:cancel()
+end
+
 function DateInput:setFocus()
   native.setKeyboardFocus(nil)
   self.pickerGroup = display.newGroup()
-  self.pickerGroup.y = _T + 60
+  self.pickerGroup.y = _T
 
-  local overlay = display.newRect(self.pickerGroup, _W / 2, _H / 2 - 60, _AW, _AH)
+  local overlay = display.newRect(self.pickerGroup, _W / 2, _H / 2, _AW, _H)
   overlay:setFillColor(0,0,0, 0.8)
   overlay:addEventListener("tap", function() self:cancel() end)
 
@@ -66,7 +70,7 @@ function DateInput:setFocus()
   datePicker.anchorX = 0.5
   datePicker.anchorY = 0
   datePicker.x = display.contentCenterX
-  datePicker.y = _T + 50
+  datePicker.y = _T + 20
   self.datePicker = datePicker
 
   local bg = display.newRect(self.pickerGroup, _W / 2, datePicker.y - 10, datePicker.width, datePicker.height + 80)
@@ -74,22 +78,23 @@ function DateInput:setFocus()
   bg:setFillColor(0.9, 0.9, 0.9, 1)
   bg:addEventListener("tap", function() return true end)
 
-
   local okBtn = Button:new(
     self.pickerGroup,
-    _T + 85 + datePicker.height,
+    _T + 55 + datePicker.height,
     T:t("new_rating_step_2.choose"), "main", function() self:onAccept(); return true end,
-    (_AW - 80) / 2,
-    _L + _AW / 2 - (_AW - 80) / 4 - 5)
+    (bg.width - 10) / 2,
+    _L + _AW / 2 - (bg.width - 10) / 4 - 5)
 
   local cancelBtn = Button:new(
     self.pickerGroup,
-    _T + 85 + datePicker.height,
+    _T + 55 + datePicker.height,
     T:t("new_rating_step_2.cancel"), "gray", function() self:cancel(); return true end,
-    (_AW - 80) / 2,
-    _L + _AW / 2 + (_AW - 80) / 4 + 5)
+    (bg.width - 10) / 2,
+    _L + _AW / 2 + (bg.width - 10) / 4 + 5)
 
   self.pickerGroup:insert(datePicker)
+
+  Runtime:addEventListener("orientation", self)
 end
 
 return DateInput

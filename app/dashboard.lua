@@ -12,6 +12,7 @@ local scene = composer.newScene()
 local list
 local navigationBar
 local buttonGroup
+local sceneGroup
 
 local function newRating()
   composer.gotoScene("app.select_section", {
@@ -118,11 +119,8 @@ local function onRowRender(event)
       local factor = Utils.fitScaleFactor(medal, 35, 35)
       medal:scale(factor, factor)
     end
-
   end
-
 end
-
 
 local function redrawList(group)
   if list then
@@ -130,9 +128,8 @@ local function redrawList(group)
     list:removeSelf()
   end
 
-  print("BH: " .. banner_height)
   list = widget.newTableView({
-    top = navigationBar.bottom - 2,
+    top = navigationBar.bottom + 5,
     width = _AW,
     height = _AH - navigationBar.height - 60 - banner_height,
     onRowRender = onRowRender
@@ -145,7 +142,7 @@ local function redrawList(group)
     lineColor = { 0.90, 0.90, 0.90 },
   })
 
-  Rating.orderBy = "date"
+  Rating.orderBy = "date DESC"
   Rating:all(function(r)
     list:insertRow({
       rowHeight = 60,
@@ -158,29 +155,53 @@ local function redrawList(group)
   group:insert(list)
 end
 
-function scene:show(event)
+function scene:redrawScene()
   local group = self.view
-  if ( event.phase == "will" ) then
-    redrawList(group)
-    showAd("banner", "bottom")
-    buttonGroup.y = _B - 40 - banner_height
-    buttonGroup:toFront()
-  end
-end
 
-function scene:create(event)
-  local group = self.view
+  if sceneGroup then
+    sceneGroup:removeSelf()
+  end
+  sceneGroup = display.newGroup()
+  group:insert(sceneGroup)
 
   navigationBar = NavBar.create({
     title   = T:t("dashboard.title")
   })
-  group:insert(navigationBar)
+  sceneGroup:insert(navigationBar)
 
   buttonGroup = display.newGroup()
   buttonGroup.y = _B - 40
-  group:insert(buttonGroup)
+  sceneGroup:insert(buttonGroup)
   local newRatingBtn = Button:new(buttonGroup, 0, T:t("dashboard.new"), "main", newRating, (_AW - 60) / 2, _L + _AW / 2 - (_AW - 60) / 4 - 10)
   local aboutAppBtn = Button:new(buttonGroup, 0, T:t("dashboard.about"), "main", aboutScene, (_AW - 60) / 2, _L + _AW / 2 + (_AW - 60) / 4 + 10)
+
+  redrawList(sceneGroup)
+  showAd("banner", "bottom")
+  buttonGroup.y = _B - 40 - banner_height
+  buttonGroup:toFront()
+
+
+  if Rating:count() == 0 then
+    list.alpha = 0
+    local text = display.newText
+    {
+      parent = sceneGroup,
+      text = T:t("dashboard.no_ratings"),
+      x = _W / 2,
+      width = _AW - 30,
+      y = _H / 2,
+      font = native.systemFont,
+      fontSize = 15,
+      align = 'center'
+    }
+    text:setFillColor(0.1, 0.1, 0.1)
+  end
+end
+
+function scene:show(event)
+  if ( event.phase == "will" ) then
+    self:redrawScene()
+  end
 end
 
 scene:addEventListener( "create", scene)

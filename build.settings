@@ -2,8 +2,8 @@ settings = {
   orientation = {
     -- http://docs.coronalabs.com/guide/distribution/buildSettings/index.html#orientation
       default = "portrait",
-    content = {"portrait", "portraitUpsideDown"},
-    supported = { "portrait", "portraitUpsideDown" }
+    content   = {"portrait",  "portraitUpsideDown", "landscapeLeft", "landscapeRight" },
+    supported = { "portrait", "portraitUpsideDown", "landscapeLeft", "landscapeRight" }
   },
 
 
@@ -33,8 +33,9 @@ settings = {
 
         -- http://docs.coronalabs.com/guide/distribution/buildSettings/index.html#appicons
           CFBundleIconFiles = {
-            "Icon.png",
             "Icon@2x.png",
+            "Icon-57.png",
+            "Icon-57@2x.png",
             "Icon-60.png",
             "Icon-60@2x.png",
             "Icon-60@3x.png",
@@ -59,7 +60,10 @@ settings = {
     usesPermissions =
     {
       -- http://developer.android.com/reference/android/Manifest.permission.html
-        "android.permission.INTERNET",
+
+      "android.permission.INTERNET",
+      "android.permission.CAMERA",
+      "android.permission.WRITE_EXTERNAL_STORAGE",
       "com.android.vending.CHECK_LICENSE",
       "com.android.vending.BILLING",
       "android.permission.ACCESS_NETWORK_STATE",

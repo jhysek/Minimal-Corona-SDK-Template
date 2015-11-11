@@ -11,7 +11,7 @@ function Database:create(filename)
 
   setmetatable(new_inst, Database)
 
-  local path = system.pathForFile((filename or "data.db"), system.DocumentsDirectory )
+  local path = system.pathForFile((filename or "data01.db"), system.DocumentsDirectory )
   new_inst.db = sqlite3.open( path )
 
   function new_inst:newModel(tableName, attributes)

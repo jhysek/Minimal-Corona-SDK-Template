@@ -47,11 +47,12 @@ function Input:initialize(parent, left, top, width, options)
 
   local platformName = system.getInfo( "platformName" )
   if ( platformName == "iPhone OS" ) then
-    self.nativeInput = native.newScaledTextField(0, 0, width - 10, 13)
+    self.nativeInput, fontsize = native.newScaledTextField(0, 0, width - 10, 13)
   else
-    self.nativeInput = native.newScaledTextField(-6, 3, width - 10, 13)
+    self.nativeInput, fontsize = native.newScaledTextField(-6, 3, width - 10, 13)
   end
   if options.input_type then
+    print("self.nativeInput: SETTING INPUT TYPE: " .. options.input_type)
     self.nativeInput.inputType = options.input_type
   end
 
@@ -59,7 +60,7 @@ function Input:initialize(parent, left, top, width, options)
   self.nativeInput.hasBackground = false
   self.nativeInput:addEventListener( "userInput", function(e) self:keybordInputHandler(e) end)
   self.nativeInput.isVisible = false
-  self.nativeInput.isSecure = options.isSecure or false
+  -- self.nativeInput.isSecure = options.isSecure or false
 
   self.placeholder = self.options.placeholder
   self.valueText = display.newText({
@@ -210,6 +211,18 @@ function Input:clear()
   self.nativeInput.text = ""
   self.valueText.text = self.placeholder
 end
+
+function Input:setValue(val)
+  self.nativeInput.text = val
+  self.valueText.text = val
+  if self.valueText.text == "" then
+    self.valueText:setFillColor(0, 0, 0, 0.3)
+    self.valueText.text = self.placeholder
+  else
+    self.valueText:setFillColor(0, 0, 0, 0.8)
+  end
+end
+
 
 function Input:shrink(offset)
   if not self.shrinkOffset or self.shrinkOffset == 0 then

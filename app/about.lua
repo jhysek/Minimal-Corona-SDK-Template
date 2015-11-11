@@ -11,40 +11,54 @@ function scene:newText(x, y, text, options)
   options = options or {}
 
   local label = display.newText(
-    _.extend({
-      parent = self.view,
-      text = text,
-      x = x,
-      y = y,
-      font = options.font or native.systemFont,
-      fontSize = 15,
-      align = "center",
-      width = _AW - 20,
-    }, options)
+  _.extend({
+    parent = self.sceneGroup,
+    text = text,
+    x = x,
+    y = y,
+    font = options.font or native.systemFont,
+    fontSize = 15,
+    align = "center",
+    width = _AW - 20,
+  }, options)
   )
+  label.anchorY = 0
 
   Color.setFillHexColor(label, options.color or "#333333")
 end
 
-
-function scene:create(event)
+function scene:redrawScene()
   local group = self.view
+  if self.sceneGroup then
+    self.sceneGroup:removeSelf()
+  end
+  self.sceneGroup = display.newGroup()
+  group:insert(self.sceneGroup)
 
   navigationBar = NavBar.create({
     backBtn = { title = T:t("nav.back"), scene = "app.dashboard" },
     title   = T:t("about.title")
   })
-  group:insert(navigationBar)
+  self.sceneGroup:insert(navigationBar)
 
-  self:newText(_W/2, _T + 120, T:t("about.app_name"), { fontSize = 25 })
-  self:newText(_W/2, _T + 160, T:t("about.version") .. ": " .. appconfig.version)
-  self:newText(_W/2, _T + 190, T:t("about.copyright"))
+  self:newText(_W/2, _T + 100, T:t("about.app_name"), { fontSize = 25 })
+  self:newText(_W/2, _T + 140, T:t("about.version") .. ": " .. appconfig.version)
+  self:newText(_W/2, _T + 170, T:t("about.copyright"))
 
-  for idx = 1, #T:t("about.info") do
-    self:newText(_W/2, _T + 220 + (idx - 1) * 30, T:t("about.info")[idx])
+  self:newText(_W/2, _T + 200, T:t("about.info1"))
+  self:newText(_W/2, _T + 230, T:t("about.info2"))
+  self:newText(_W/2, _T + 260, T:t("about.info3"))
+
+  local icon = display.newImage(self.sceneGroup, "assets/icon.png", _W / 2, _T + 430)
+end
+
+
+function scene:show(event)
+  if event.phase == 'will' then
+    self:redrawScene()
   end
 end
 
-scene:addEventListener( "create", scene)
+scene:addEventListener( "show", scene)
 
 return scene

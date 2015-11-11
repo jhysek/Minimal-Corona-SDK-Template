@@ -39,7 +39,7 @@ function Message:initialize(options)
     height = self.height - 20
   })
 
-  self.group:addEventListener("tap", function() self:hide() end)
+  self.group:addEventListener("tap", function() self:hide(); return true end)
   return self
 end
 

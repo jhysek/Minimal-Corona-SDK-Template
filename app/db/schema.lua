@@ -7,7 +7,13 @@ Rating = db:newModel("ratings", {
   "hunter",
   "animal",
   "rating",
-  "medal"
+  "medal",
+  "created_at",
+  "place",
+  "country",
+  "picture1",
+  "picture2",
+  "picture3"
 })
 
 Purchase = db:newModel("purchases", {

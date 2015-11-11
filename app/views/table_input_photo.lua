@@ -1,8 +1,11 @@
 --------------------------------------------------------------------------------
 local composer = require "composer"
 local widget   = require "widget"
-local NavBar   = require("app.views.navBar")
-local Cam      = require("app.services.camera")
+
+local Utils    = require "lib.utils"
+
+local NavBar   = require "app.views.navBar"
+local Cam      = require "app.services.camera"
 --------------------------------------------------------------------------------
 
 local scene = composer.newScene()
@@ -17,20 +20,6 @@ local function goBack()
   os.remove( system.pathForFile("lastPhoto.png", system.TemporaryDirectory) )
 end
 
-local function fitScaleFactor(displayObject, fitWidth, fitHeight, enlarge)
-  local scaleFactor = fitHeight / displayObject.height
-  local newWidth = displayObject.width * scaleFactor
-  if newWidth > fitWidth then
-    scaleFactor = fitWidth / displayObject.width
-  end
-  if not enlarge and scaleFactor > 1 then
-    return 1
-  end
-  return scaleFactor
-end
-
-
-
 function scene:create(event)
   local group = self.view
 
@@ -39,8 +28,10 @@ function scene:create(event)
 
   navigationBar = NavBar.create({
     title    = "",
+    no_cart  = true,
     backBtn  = {
       title = "uložit",
+      fg_color = "#ffffff",
       onTap = function(e)
         if options.onChanged and preview_changed then
           options.onChanged()
@@ -64,8 +55,8 @@ function scene:create(event)
         height = 30,
         id = "t1",
         label = "Vyfotit",
-        defaultFile = "assets/icon_take_red.png",
-        overFile = "assets/icon_take_red.png",
+        defaultFile = "assets/icon_take.png",
+        overFile = "assets/icon_take.png",
         labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.7 } },
         onPress = function()
           Cam.take(function(img)
@@ -73,12 +64,14 @@ function scene:create(event)
               preview:removeSelf()
             end
             preview = img
-            preview.x = _W / 2
-            preview.y = _H / 2
-            group:insert(preview)
-            local factor = fitScaleFactor(preview, _AW, _AH - 120)
-            preview:scale(factor, factor)
-            preview_changed = true
+            if preview then
+              preview.x = _W / 2
+              preview.y = _H / 2
+              group:insert(preview)
+              local factor = Utils.fitScaleFactor(preview, _AW, _AH - 120)
+              preview:scale(factor, factor)
+              preview_changed = true
+            end
             navigationBar:toFront()
           end)
 
@@ -89,9 +82,9 @@ function scene:create(event)
         width = 30,
         height = 30,
         id = "t2",
-        defaultFile = "assets/icon_pick_red.png",
-        overFile = "assets/icon_pick_red.png",
-        labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.7 } },
+        defaultFile = "assets/icon_pick.png",
+        overFile    = "assets/icon_pick.png",
+        labelColor  = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.7 } },
         label = "Vybrat",
         onPress = function()
           print("Take")
@@ -104,7 +97,7 @@ function scene:create(event)
               group:insert(preview)
               preview.x = _W / 2
               preview.y = _H / 2
-              local factor = fitScaleFactor(preview, _AW, _AH - 120)
+              local factor = Utils.fitScaleFactor(preview, _AW, _AH - 120)
               preview:scale(factor, factor)
               preview_changed = true
             end
@@ -134,7 +127,7 @@ function scene:show(event)
         if preview then
           preview.x = _W / 2
           preview.y = _H / 2
-          local factor = fitScaleFactor(preview, _AW, _AH - 100)
+          local factor = Utils.fitScaleFactor(preview, _AW, _AH - 100)
           preview:scale(factor, factor)
         end
       end

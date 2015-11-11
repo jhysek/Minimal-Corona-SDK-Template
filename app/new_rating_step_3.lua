@@ -15,29 +15,21 @@ local back_params
 local calculator
 local code
 local backBtn
+local sceneGroup
 
 local function publish()
+  if appconfig.api_server_url then
 
-  if appconfig.api_server then
     local xml = Xml.generate(code, calculator, values)
+    print(inspect(xml))
     timer.performWithDelay(20, function()
-      Server.publish(xml)
+--      Server.publish(xml)
     end)
   end
 
   composer.gotoScene("app.dashboard", {
     effect = "slideDown"
   })
-end
-
-function scene:create(event)
-  local group = self.view
-
-  navigationBar = NavBar.create({
-    title   = T:t("new_rating_step_1.title"),
-    backBtn = { title = T:t("nav.back"), scene = "app.new_rating_step_2", params = { without_reloading = true }},
-  })
-  group:insert(navigationBar)
 end
 
 local function prepareFormData(params)
@@ -56,56 +48,84 @@ local function prepareFormData(params)
   }
 end
 
-function scene:show(event)
-  local group = self.view
-  if event.phase == "will" then
-    if event.params then
-      if event.params.back_params then
-        navigationBar.title.text = T:t("new_rating_step_1.title") .. ": " .. T:t("title." .. event.params.code)
-      end
 
-      code = event.params.code
-      values = event.params.values
-      calculator = event.params.calculator
-      back_params = event.params.back_params
+function scene:redrawScene()
+  group = scene.view
+  if sceneGroup then
+    sceneGroup:removeSelf()
+  end
+  sceneGroup = display.newGroup()
+  group:insert(sceneGroup)
 
-      Rating:insert({
-        date = values.date,
-        hunter = values.hunter,
-        animal = code,
-        rating = calculator.soucet,
-        medal = calculator.medal
+  navigationBar = NavBar.create({
+    title   = T:t("new_rating_step_1.title"),
+    backBtn = { title = T:t("nav.back"), scene = "app.new_rating_step_2", params = { without_reloading = true }},
+  })
+
+  sceneGroup:insert(navigationBar)
+
+  if self.params then
+    if self.params.back_params then
+      navigationBar.title.text = T:t("new_rating_step_1.title") .. ": " .. T:t("title." .. self.params.code)
+    end
+
+    code        = self.params.code
+    values      = self.params.values
+    calculator  = self.params.calculator
+    back_params = self.params.back_params
+
+    Rating:insert({
+      date = values.date,
+      hunter = values.hunter,
+      animal = code,
+      rating = calculator.soucet,
+      medal = calculator.medal,
+      place = values.place,
+      country = values.country,
+      picture1 = values.photos[3],
+      picture2 = values.photos[2],
+      picture3 = values.photos[1],
+      created_at = os.time()
+    })
+
+    if form then
+      form:removeSelf()
+    end
+
+    if self.params then
+      form = Form:new(sceneGroup, prepareFormData(self.params), {
+        readOnly = true,
+        height = _AH - 65 - 65 - banner_height,
+        value_align = 'right',
+        value_padding_right = 20,
+        value_font_size  = 15
       })
+      form.group.y = _T + 65
+      sceneGroup:insert(form.group)
 
-      if form then
-        form:removeSelf()
-      end
-
-      if event.params then
-        form = Form:new(group, prepareFormData(event.params), {
-          readOnly = true,
-          height = _AH - 65 - 65 - banner_height,
-          value_align = 'right',
-          value_padding_right = 20,
-          value_font_size  = 15
-        })
-        form.group.y = _T + 65
-        group:insert(form.group)
-
-        if event.params.calculator and event.params.calculator.medal ~= "none" then
-        end
+      if self.params.calculator and self.params.calculator.medal ~= "none" then
       end
     end
+  end
 
-    if backBtn then
-      backBtn:removeSelf()
-    end
+  if appconfig.api_server_url then
+    Button:new(sceneGroup, _B - 40 - banner_height, T:t("new_rating_step_3.publish"), "main", publish, _AW - 40)
+  else
+    Button:new(sceneGroup, _B - 40 - banner_height, T:t("new_rating_step_3.back"), "main", publish, _AW - 40)
+  end
+end
 
-    if appconfig.api_server then
-      backBtn = Button:new(group, _B - 40 - banner_height, T:t("new_rating_step_3.publish"), "main", publish, _AW - 40)
-    else
-      backBtn = Button:new(group, _B - 40 - banner_height, T:t("new_rating_step_3.back"), "main", publish, _AW - 40)
-    end
+
+function scene:create(event)
+  local group = self.view
+
+end
+
+
+function scene:show(event)
+  if event.phase == "will" then
+    self.params = event.params
+    self:redrawScene()
   end
 end
 

@@ -22,17 +22,22 @@ function BlockBtn:initialize(parent, y, text, color, onPress, width, x)
     x = x or (_W / 2),
     y = y,
     width = width or (_AW - 60),
-    height = _AH / 14,
+    height = 40,
     shape = 'rect',
     fillColor = { default = colors[color], over = colors[color] },
     labelColor = { default={ 1, 1, 1 }, over={ 0, 0, 0, 0.5 } },
     font = "OpenSans-Light",
-    fontSize = 15,
+    fontSize = 12,
     onRelease = onPress,
     onPress = function(e) return true end
   })
   parent:insert(self.displayObject)
   return self.displayObject
 end
+
+function BlockBtn:setText(text)
+  self.displayObject:setLabel(text)
+end
+
 
 return BlockBtn

@@ -1,10 +1,11 @@
 --------------------------------------------------------------------------------
 local widget  = require "widget"
-
+local composer = require "composer"
 local class   = require "lib.middleclass"
 local Color   = require "lib.Color"
 local _       = require "lib.underscore"
 local Utils   = require "lib.utils"
+local Files   = require "lib.copy_file"
 
 local GridView = require "app.views.gridView"
 local TableSelectInput = require "app.views.table_select_input"
@@ -15,13 +16,11 @@ local DateInput = require "app.views.date_input"
 
 local Form = class("Form")
 
-function Form:initialize(parent, fields, options)
-  self.parent = parent
+function Form:redraw()
+  if self.group then
+    self.group:removeSelf()
+  end
   self.group = display.newGroup()
-  self.options = options or {}
-  self.fields = fields
-  self.inputs = {}
-  self.errors = {}
 
   self.fieldList = GridView:new(
   self.group,
@@ -38,7 +37,18 @@ function Form:initialize(parent, fields, options)
   )
 
   self:reloadItems()
-  parent:insert(self.group)
+  self.parent:insert(self.group)
+end
+
+function Form:initialize(parent, fields, options)
+  self.parent = parent
+  self.options = options or {}
+  self.fields = fields
+  self.inputs = {}
+  self.errors = {}
+
+  self:redraw()
+
 end
 
 function Form:removeSelf()
@@ -53,6 +63,14 @@ function Form:values()
     result[name] = input:value()
   end
   return result
+end
+
+function Form:setValues(values)
+  for name, input in pairs(self.inputs) do
+    if values[name] then
+      input:setValue(values[name])
+    end
+  end
 end
 
 function Form:clear()
@@ -91,9 +109,7 @@ function Form:validate()
   for i = 1,#self.fields do
     local field = self.fields[i]
     if field.validations then
-      print("VALIDATING: " .. field.name)
       if not self:inputIsValid(self.inputs[field.name], field.validations) then
-        print(">> " .. field.name .. " invalid")
         if self.inputs[field.name] then
           self.errors[field.name] = self.inputs[field.name].errors
         end
@@ -133,8 +149,10 @@ function Form:reloadItems()
     self:renderItem({ row = row })
     self.fieldList:insert(row)
 
-    local line = display.newRect(row, 0, self.fieldList.options.item_height / 2 - 1, _AW, 1)
-    line:setFillColor(0,0,0,0.2)
+    if field.type ~= 'section' then
+      local line = display.newRect(row, 0, self.fieldList.options.item_height / 2 - 1, _AW, 1)
+      line:setFillColor(0,0,0,0.2)
+    end
 
     bg:addEventListener("tap", function(e)
       self:touchItem({ row = row })
@@ -166,6 +184,59 @@ function Form:touchItem(event)
   return true
 end
 
+function Form:redrawPhotosField(row, field)
+  row.objects = row.objects or {}
+
+  if #row.objects > 0 then
+    for i = 1, #row.objects do
+      row.objects[i]:removeSelf()
+      row.objects[i] = nil
+      print("REMOVED CONTAINER #" .. i)
+    end
+  end
+
+  for i = 1, field.count do
+    local c_height  = row.height - 10
+    local c_width   = c_height / 3 * 4
+    local container = display.newContainer(row, c_width, c_height)
+    container.x = _AW / 2 - (c_width + 10) * i + c_width / 2
+    container.y = 0
+    row.objects[i] = container
+
+    local bg
+    local params = {}
+    if field.images[i] then
+      params.filename = field.images[i]
+      params.path     = system.DocumentsDirectory
+      bg = display.newImage(container, field.images[i], system.DocumentsDirectory)
+    else
+      bg = display.newImage(container, "assets/img_placeholder.png")
+    end
+
+    params.onChanged = function()
+      field.images[i] = "photos_" .. os.time() .. ".png"
+      Files.copyFile("lastPhoto.png", system.TemporaryDirectory,
+                     field.images[i], system.DocumentsDirectory)
+
+      self:redrawPhotosField(row, field)
+    end
+
+    if bg then
+      bg.width = c_width
+      bg.height = c_height
+
+      bg:addEventListener("tap", function()
+        composer.showOverlay("app.views.table_input_photo", {
+          isModal = true,
+          effect = "slideLeft",
+          time = 400,
+          params = params
+        })
+      end)
+    end
+  end
+end
+
 function Form:renderItem(event)
   local row = event.row
   local idx = row.index
@@ -187,7 +258,7 @@ function Form:renderItem(event)
     {
       placeholder = field.placeholder,
       isSecure = field.type == "password",
---      inputFillColor = "#ffffff",
+      --      inputFillColor = "#ffffff",
       inputBorderWidth = 0,
       screenGroup = self.parent,
       value = field.default,
@@ -203,19 +274,25 @@ function Form:renderItem(event)
 
   if field.type == 'boolean' then
     local input = BoolInput(row,
-      self.fieldList.options.item_width / 2 - input_width / 4 * 3,
-      0,
-      input_width,
-      {})
+    self.fieldList.options.item_width / 2 - input_width / 4 * 3,
+    0,
+    input_width,
+    {})
     self.inputs[field.name] = input
   end
 
   if field.type == 'date' then
+    local currYear = tonumber(os.date("%Y"))
+    local currMonth = tonumber(os.date("%m"))
+    local currDay = tonumber(os.date("%d"))
+
     local input = DateInput(row,
-      self.fieldList.options.item_width / 2 - input_width / 4 * 3,
-      0,
-      input_width,
-      {})
+    self.fieldList.options.item_width / 2 - input_width / 4 * 3,
+    0,
+    input_width,
+    {
+      value = currDay .. "." .. currMonth .. ". " .. currYear
+    })
     self.inputs[field.name] = input
   end
 
@@ -229,6 +306,11 @@ function Form:renderItem(event)
     }))
 
     self.inputs[field.name] = input
+  end
+
+  -- photos --------------------------------------------------------------------
+  if field.type == "photos" then
+    self:redrawPhotosField(row, field)
   end
 
   -- button --------------------------------------------------------------------
@@ -247,11 +329,11 @@ function Form:renderItem(event)
 
   -- section -------------------------------------------------------------------
   if field.type == 'section' then
-    local bg = display.newRect(row, row.width / 2, row.height / 2, row.width, row.height)
-    Color.setFillHexColor(bg, appconfig.navbar_bg_color)
-    label_color = appconfig.main_color
-    label_font_size = 18
-    label_width = self.fieldList.width
+    label_color = "#333333"
+    label_font_size = 13
+    label_align = 'center'
+    label_width = self.fieldList.width - 20
+    label_x = - self.fieldList.options.item_width / 2 + 10
   end
 
   -- image ---------------------------------------------------------------------

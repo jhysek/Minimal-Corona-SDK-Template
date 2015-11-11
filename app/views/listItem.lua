@@ -98,7 +98,7 @@ function ListItem:initialize(options)
       text = options.rightText,
       font = "Helvetica Neue",
       fontSize = options.rightTextSize or 17,
-      width = 100,
+      width = 200,
       align = "right"
     })
     self.rightText.anchorX = 1

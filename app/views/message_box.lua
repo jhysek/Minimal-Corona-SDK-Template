@@ -10,12 +10,13 @@ end
 function MessageBox:onShow()
 end
 
+function MessageBox:redraw()
+  if self.group then
+    self.group:removeSelf()
+  end
 
-function MessageBox:initialize(parent, options)
-  self.parent = parent
   self.group = display.newGroup()
   self.parent:insert(self.group)
-  self.options = options or {}
 
   -- overlay -------------------------------------------------------------------
   self.overlay = display.newRect(_W / 2, _H / 2, _W, _H)
@@ -40,6 +41,12 @@ function MessageBox:initialize(parent, options)
   self.detailGroup:insert(bg)
 
   self:onCreate(self.detailGroup)
+end
+
+function MessageBox:initialize(parent, options)
+  self.parent = parent
+  self.options = options or {}
+  self:redraw()
 end
 
 function MessageBox:show(data, onShow)

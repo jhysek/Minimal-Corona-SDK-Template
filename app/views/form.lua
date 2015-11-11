@@ -10,13 +10,11 @@ local Utils   = require "lib.utils"
 
 local Form = class("Form")
 
-function Form:initialize(parent, fields, options)
-  self.parent = parent
+function Form:redraw()
+  if self.group then
+    self.group:removeSelf()
+  end
   self.group = display.newGroup()
-  self.options = options or {}
-  self.fields = fields
-  self.inputs = {}
-  self.errors = {}
 
   self.fieldList = widget.newTableView {
     top = 0,
@@ -33,7 +31,17 @@ function Form:initialize(parent, fields, options)
   self:reloadItems()
   self.fieldList:scrollToY({ y = 0, time = 0 })
 
-  parent:insert(self.group)
+  self.parent:insert(self.group)
+end
+
+function Form:initialize(parent, fields, options)
+  self.parent = parent
+  self.options = options or {}
+  self.fields = fields
+  self.inputs = {}
+  self.errors = {}
+
+  self:redraw()
 end
 
 function Form:removeSelf()
@@ -48,6 +56,14 @@ function Form:values()
     result[name] = input:value()
   end
   return result
+end
+
+function Form:setValues(values)
+  for name, input in pairs(self.inputs) do
+    if values[name] then
+      input:setValue(values[name])
+    end
+  end
 end
 
 function Form:clear()

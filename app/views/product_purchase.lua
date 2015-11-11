@@ -8,13 +8,14 @@ local Button  = require "app.views.button"
 
 local ProductPurchase = class("ProductPurchase", MessageBox)
 
+
 function ProductPurchase:onCreate(group)
   self.onPurchase = function() print("NOT IMPLEMENTED") end
 
   self.title = display.newText
   {
     font = system.nativeFont,
-    fontSize = 15,
+    fontSize = 12,
     x = _L + 30,
     y = _H / 2 - self.bg.height / 2 + 5,
     align = "left",
@@ -27,7 +28,7 @@ function ProductPurchase:onCreate(group)
   self.price = display.newText
   {
     font = system.nativeFontBold,
-    fontSize = 17,
+    fontSize = 13,
     x = _R - 30,
     y = _H / 2 - self.bg.height / 2 + 5,
     align = "right",
@@ -40,9 +41,9 @@ function ProductPurchase:onCreate(group)
   self.description = display.newText
   {
     font = system.nativeFont,
-    fontSize = 13,
+    fontSize = 12,
     x = _W / 2,
-    y = _H / 2 - self.bg.height / 2 + 30,
+    y = _H / 2 - self.bg.height / 2 + 35,
     align = "left",
     parent = group,
     width = _AW - 60,
