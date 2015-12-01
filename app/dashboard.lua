@@ -2,10 +2,12 @@
 local composer = require "composer"
 local widget   = require "widget"
 
-local Utils    = require "lib.utils"
+local Scaling  = require "lib.scaling"
 
 local NavBar   = require "app.views.navBar"
 local Button   = require "app.views.button"
+local XML      = require "app.services.xml_generator"
+local Server   = require "app.services.server"
 --------------------------------------------------------------------------------
 
 local scene = composer.newScene()
@@ -26,6 +28,8 @@ local function aboutScene()
   })
 end
 
+local redrawList
+
 local function onRowRender(event)
   local row = event.row
   local rating = row.params
@@ -36,10 +40,10 @@ local function onRowRender(event)
 
     local legend_fields = {
       {T:t("dashboard.date"), _L + 10},
-      {T:t("dashboard.hunter"), _L + 70},
-      {T:t("dashboard.trophy"), _L + _AW / 2 + 10},
-      {T:t("dashboard.points"), _L + _AW / 4 * 3 - 10},
-      {T:t("dashboard.medal"), _R - 50},
+      {T:t("dashboard.hunter"), _L + 65},
+      {T:t("dashboard.trophy"), _L + _AW / 2 - 10},
+      {T:t("dashboard.points"), _L + _AW / 4 * 3 - 40},
+      {T:t("dashboard.medal"), _R - 80},
     }
 
     for i = 1, #legend_fields do
@@ -60,7 +64,7 @@ local function onRowRender(event)
     end
   else
 
-    local dateBg = display.newRect(row, 30, 30, 58, 58)
+    local dateBg = display.newRect(row, 30, 30, 48, 58)
     Color.setFillHexColor(dateBg, appconfig.main_color)
     local date = display.newText({
       y = 30,
@@ -77,7 +81,7 @@ local function onRowRender(event)
 
     local hunter = display.newText({
       y = 30,
-      x = _L + 70,
+      x = _L + 65,
       text = rating.hunter,
       font = native.systemFont,
       fontSize = 13,
@@ -90,7 +94,7 @@ local function onRowRender(event)
 
     local section = display.newText({
       y = 30,
-      x = _L + _AW / 2 + 10,
+      x = _L + _AW / 2 - 10,
       text = T:t("title." .. rating.animal),
       font = native.systemFont,
       fontSize = 13,
@@ -103,7 +107,7 @@ local function onRowRender(event)
 
     local points = display.newText({
       y = 30,
-      x = _L + _AW / 4 * 3 + 15,
+      x = _L + _AW / 4 * 3 - 15,
       text = rating.rating,
       font = native.systemFont,
       fontSize = 13,
@@ -115,14 +119,29 @@ local function onRowRender(event)
     points:setFillColor(0,0,0)
 
     if rating.medal and rating.medal ~= 'none' then
-      local medal = display.newImage(row, "assets/" .. rating.medal .. ".png", _R - 30, 30)
-      local factor = Utils.fitScaleFactor(medal, 35, 35)
-      medal:scale(factor, factor)
+      local medal = display.newImage(row, "assets/" .. rating.medal .. ".png", _R - 65, 30)
+      Scaling.scaleToFit(medal, 35, 35)
     end
+
+    local syncBg  = display.newRect(row, _R, 30, 70, row.height)
+    syncBg.anchorX = 1
+    syncBg.isHitTestable = true
+    syncBg.isVisible = false
+    syncBg:addEventListener("tap", function(e)
+      Server.publishRating(rating, function()
+        Rating:update(rating.id, { synchronized_at = os.time() })
+        redrawList(sceneGroup)
+      end)
+    end)
+
+    local filename = rating.synchronized_at and "ok" or "exclamation"
+    local sync_state = display.newImage(row, 'assets/btn_' .. filename .. '.png', _R - 5, 30)
+    sync_state.anchorX = 1
+    Scaling.scaleToFit(sync_state, 25, 25)
   end
 end
 
-local function redrawList(group)
+redrawList = function(group)
   if list then
     list:deleteAllRows()
     list:removeSelf()
@@ -154,6 +173,7 @@ local function redrawList(group)
   end)
   group:insert(list)
 end
+
 
 function scene:redrawScene()
   local group = self.view

@@ -1,0 +1,11 @@
+{
+  "version": "0.9.11",
+  "main_color": "#787A40",
+  /* "api_server_url": "http://meonix.com/temp/lv/lsn", */
+  "api_server_url": "http://trophies.residit.com/collector/xml",
+  "inapp_code_all": "all",
+  "admob_code": {
+    "ios": "ca-app-pub-8169695902062470/3544855946",
+    "android": "ca-app-pub-8169695902062470/2207723544"
+  },
+}

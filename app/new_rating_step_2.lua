@@ -106,6 +106,7 @@ function scene:show(event)
   if event.phase == "will" then
     if not event.params.without_reloading then
       self.params = event.params
+      fields[7].images = {}
     end
     self:redrawScene(event)
   end

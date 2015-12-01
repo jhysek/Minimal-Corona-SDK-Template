@@ -16,12 +16,12 @@ showAd = function( adType, position )
 
     banner_position = position
     if position == "bottom" then
-      adY = adY + display.actualContentHeight - 65
+      adY = adY + display.actualContentHeight - 55
     end
 
     ads.show( adType, { x = adX, y = adY } )
 
-    banner_height = 60
+    banner_height = 55
   end
 end
 

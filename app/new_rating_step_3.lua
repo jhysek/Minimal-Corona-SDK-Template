@@ -18,12 +18,34 @@ local backBtn
 local sceneGroup
 
 local function publish()
-  if appconfig.api_server_url then
+  local rating_id = Rating:insert({
+    date     = values.date,
+    hunter   = values.hunter,
+    animal   = code,
+    rating   = calculator.soucet,
+    medal    = calculator.medal,
+    place    = values.place,
+    country  = values.country,
+    picture1 = values.photos[3],
+    picture2 = values.photos[2],
+    picture3 = values.photos[1],
+    age      = values.age,
+    positive = calculator.kladne,
+    negative = calculator.zaporne,
+    contact  = values.contact,
+    created_at = os.time()
+  })
 
-    local xml = Xml.generate(code, calculator, values)
-    print(inspect(xml))
+  for key, val in pairs(calculator.inputs) do
+    InputValue:insert({ key = key, value = val, rating_id = rating_id })
+  end
+
+  if appconfig.api_server_url then
+    local rating = Rating:get(rating_id)
+    local xml = Xml.generate(rating)
     timer.performWithDelay(20, function()
---      Server.publish(xml)
+ --     Server.publish(xml)
+      print(inspect(xml))
     end)
   end
 
@@ -74,20 +96,6 @@ function scene:redrawScene()
     calculator  = self.params.calculator
     back_params = self.params.back_params
 
-    Rating:insert({
-      date = values.date,
-      hunter = values.hunter,
-      animal = code,
-      rating = calculator.soucet,
-      medal = calculator.medal,
-      place = values.place,
-      country = values.country,
-      picture1 = values.photos[3],
-      picture2 = values.photos[2],
-      picture3 = values.photos[1],
-      created_at = os.time()
-    })
-
     if form then
       form:removeSelf()
     end
@@ -115,13 +123,6 @@ function scene:redrawScene()
   end
 end
 
-
-function scene:create(event)
-  local group = self.view
-
-end
-
-
 function scene:show(event)
   if event.phase == "will" then
     self.params = event.params
@@ -129,7 +130,6 @@ function scene:show(event)
   end
 end
 
-scene:addEventListener( "create", scene)
 scene:addEventListener( "show", scene)
 
 return scene

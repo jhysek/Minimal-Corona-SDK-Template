@@ -2,7 +2,7 @@
 local composer = require "composer"
 local widget   = require "widget"
 
-local Utils    = require "lib.utils"
+local Scaling  = require "lib.scaling"
 
 local NavBar   = require "app.views.navBar"
 local Cam      = require "app.services.camera"
@@ -10,6 +10,7 @@ local Cam      = require "app.services.camera"
 
 local scene = composer.newScene()
 local list
+local tabs
 local navigationBar
 local options
 local preview_changed
@@ -18,6 +19,18 @@ local preview
 local function goBack()
   composer.hideOverlay("slideRight", 100)
   os.remove( system.pathForFile("lastPhoto.png", system.TemporaryDirectory) )
+end
+
+function scene:clearPreview()
+  print("CLEARING PREVIEW")
+  if preview then
+    print("EXISTS, removing")
+    preview:removeSelf()
+  end
+  print("CREATING NEW ONE")
+  preview = display.newContainer(self.view, _AW, _AW - 120)
+  preview.x = _W / 2
+  preview.y = _H / 2
 end
 
 function scene:create(event)
@@ -33,6 +46,10 @@ function scene:create(event)
       title = "uložit",
       fg_color = "#ffffff",
       onTap = function(e)
+        display.save(preview, {
+          filename = "lastPreview.jpg",
+          baseDir  = system.TemporaryDirectory
+        })
         if options.onChanged and preview_changed then
           options.onChanged()
         end
@@ -46,89 +63,58 @@ function scene:create(event)
   })
   group:insert(navigationBar)
 
-  local tabs = widget.newTabBar({
-    width = _AW,
-    top   = _B - 58,
-    buttons = {
-      {
-        width = 30,
-        height = 30,
-        id = "t1",
-        label = "Vyfotit",
-        defaultFile = "assets/icon_take.png",
-        overFile = "assets/icon_take.png",
-        labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.7 } },
-        onPress = function()
-          Cam.take(function(img)
-            if preview then
-              preview:removeSelf()
-            end
-            preview = img
-            if preview then
-              preview.x = _W / 2
-              preview.y = _H / 2
-              group:insert(preview)
-              local factor = Utils.fitScaleFactor(preview, _AW, _AH - 120)
-              preview:scale(factor, factor)
-              preview_changed = true
-            end
-            navigationBar:toFront()
-          end)
+  self:clearPreview()
 
-        end
-      },
+  local tabs_bg = display.newRect(group, _W / 2, _B - 58 - banner_height, _AW, 58)
+  tabs_bg.anchorY = 0
+  tabs_bg:setFillColor(0.97, 0.97, 0.97)
 
-      {
-        width = 30,
-        height = 30,
-        id = "t2",
-        defaultFile = "assets/icon_pick.png",
-        overFile    = "assets/icon_pick.png",
-        labelColor  = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.7 } },
-        label = "Vybrat",
-        onPress = function()
-          print("Take")
-          Cam.pick(function(img)
-            if preview then
-              preview:removeSelf()
-            end
-            preview = img
-            if preview then
-              group:insert(preview)
-              preview.x = _W / 2
-              preview.y = _H / 2
-              local factor = Utils.fitScaleFactor(preview, _AW, _AH - 120)
-              preview:scale(factor, factor)
-              preview_changed = true
-            end
-            navigationBar:toFront()
-          end)
-        end
-      },
-    }
-  })
-  group:insert(tabs)
+  local btn_take = display.newImage(group, "assets/icon_take.png", _L + _AW / 4, _B - 30 - banner_height)
+  Scaling.scaleToFit(btn_take, 30, 30)
+  local btn_pick = display.newImage(group, "assets/icon_pick.png", _R - _AW / 4, _B - 30 - banner_height)
+  Scaling.scaleToFit(btn_pick, 30, 30)
+
+  btn_take:addEventListener("tap", function()
+    Cam.take(function(img)
+      self:clearPreview()
+      if img then
+        print("inserting img to preview")
+        preview:insert(img)
+        Scaling.scaleToFit(img, _AW, _AH - 120)
+        preview_changed = true
+      end
+      navigationBar:toFront()
+    end)
+  end)
+
+  btn_pick:addEventListener("tap", function()
+    Cam.pick(function(img)
+      self:clearPreview()
+      if img then
+        preview:insert(img)
+        Scaling.scaleToFit(img, _AW, _AH - 120)
+        preview_changed = true
+      end
+      navigationBar:toFront()
+    end)
+  end)
 end
 
 function scene:show(event)
   if event.phase == "will" then
+    native.setKeyboardFocus(nil)
     local group = self.view
     options = event.params
 
     if event.params then
       navigationBar.title.text = event.params.title
-      if preview then
-        preview:removeSelf()
-      end
+      self:clearPreview()
 
       if event.params.filename then
-        preview = display.newImage(group, event.params.filename, event.params.path)
         preview_changed = false
-        if preview then
-          preview.x = _W / 2
-          preview.y = _H / 2
-          local factor = Utils.fitScaleFactor(preview, _AW, _AH - 100)
-          preview:scale(factor, factor)
+        local img = display.newImage(preview, event.params.filename, event.params.path)
+        if img then
+          Scaling.scaleToFit(img, _AW, _AH - 120)
         end
       end
     else

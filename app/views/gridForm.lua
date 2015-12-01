@@ -214,8 +214,8 @@ function Form:redrawPhotosField(row, field)
     end
 
     params.onChanged = function()
-      field.images[i] = "photos_" .. os.time() .. ".png"
-      Files.copyFile("lastPhoto.png", system.TemporaryDirectory,
+      field.images[i] = "photos_" .. os.time() .. ".jpg"
+      Files.copyFile("lastPreview.jpg", system.TemporaryDirectory,
                      field.images[i], system.DocumentsDirectory)
 
       self:redrawPhotosField(row, field)
@@ -226,6 +226,7 @@ function Form:redrawPhotosField(row, field)
       bg.height = c_height
 
       bg:addEventListener("tap", function()
+        native.setKeyboardFocus(nil)
         composer.showOverlay("app.views.table_input_photo", {
           isModal = true,
           effect = "slideLeft",
