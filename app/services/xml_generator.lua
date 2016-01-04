@@ -8,12 +8,6 @@ local MEDAL_NUMBERS = {
   bronze = 3
 }
 
-function string:split(sep)
-  local sep, fields = sep or ":", {}
-  local pattern = string.format("([^%s]+)", sep)
-  self:gsub(pattern, function(c) fields[#fields+1] = c end)
-  return fields
-end
 
 local function os_fields()
   local result = ""
@@ -74,6 +68,7 @@ return {
 
     -- inputs ------------------------------------------------------------------
     local evaluation_data = ""
+    InputValue.orderBy = "key"
     InputValue:where({rating_id = rating.id}, function(input)
       tag_name = rating.animal .. "-" .. input.key
       evaluation_data = evaluation_data  .. "<" .. tag_name .. ">" .. (input.value or "") .. "</".. tag_name ..">"

@@ -1,15 +1,17 @@
 local Message = require "app.views.message"
 local XML     = require "app.services.xml_generator"
 
-local function sendXml(xml, onSuccess, onFail)
+local function sendXml(xml, rating_id, onSuccess, onFail)
   network.request(appconfig.api_server_url, "POST", function(event)
     if event.isError then
+      Rating:update(rating_id, { sync_state = 'error' })
       Message.toast("Nepodařilo se odeslat :(", { color = "#880000" })
       if onFail then
         onFail()
       end
     else
       Message.toast("Úlovek byl odeslán", { color = "#448800" })
+      Rating:update(rating_id, { sync_state = 'ok' })
       if onSuccess then
         onSuccess()
       end
@@ -28,7 +30,7 @@ return {
     if rating and appconfig.api_server_url then
       local xml = XML.generate(rating)
       print(inspect(xml))
-      sendXml(xml, onSuccess, onFail)
+--      sendXml(xml, rating.id, onSuccess, onFail)
     end
   end
 

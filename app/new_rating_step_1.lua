@@ -86,7 +86,8 @@ function scene:redrawScene()
     end
 
     if self.params then
-      form = Form:new(self.view, prepareFormDefinition(self.params), { height = _AH - 60 - banner_height - head_height })
+      form = Form:new(self.view, prepareFormDefinition(self.params), { height = _AH - 60 - banner_height - head_height,
+                                                                       label_width = 0.8 })
       form:setValues(formValues)
 
       form.group.y = _T + 65 + head_height / 2

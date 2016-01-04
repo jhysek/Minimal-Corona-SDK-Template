@@ -6,7 +6,7 @@ local GenericCalculator = require "app.calculators.generic_calculator"
 local Calculator = class("Calculator", GenericCalculator)
 
 Calculator.required_inputs = {
-  "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10",
+  "f01", "f02", "f03", "f04", "f05", "f06", "f07", "f08", "f09", "f10",
   "f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18", "f19", "f20",
   "f21"
 }
@@ -27,22 +27,22 @@ function Calculator:compute()
   local body = {}
   local vypoctene = {}
 
-  vypoctene[1] = inp.f1 + inp.f2
-  body[1]      = math.abs(inp.f1 - inp.f2)
+  vypoctene[1] = inp.f01 + inp.f02
+  body[1]      = math.abs(inp.f01 - inp.f02)
 
-  local avg_1_2 = (inp.f1 + inp.f2) / 2
+  local avg_1_2 = (inp.f01 + inp.f02) / 2
 
-  if inp.f3 <= avg_1_2 then
+  if inp.f03 <= avg_1_2 then
     vypoctene[2] = inp.f3
   else
     vypoctene[2] = avg_1_2
-    body[10]     = inp.f3 - avg_1_2
+    body[10]     = inp.f03 - avg_1_2
   end
 
-  body[2]      = inp.f4 + inp.f5 + inp.f6 + inp.f7
+  body[2]      = inp.f04 + inp.f05 + inp.f06 + inp.f7
 
-  vypoctene[4] = inp.f8 + inp.f9
-  body[3]      = math.abs(inp.f8 - inp.f9)
+  vypoctene[4] = inp.f08 + inp.f09
+  body[3]      = math.abs(inp.f08 - inp.f09)
 
   vypoctene[5] = inp.f10 + inp.f11
   body[4]      = math.abs(inp.f10 - inp.f11)

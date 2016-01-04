@@ -1,855 +1,200 @@
 {
-  //////////////////////////////////////////////////////////
-  // USER INTERFACE
-  //////////////////////////////////////////////////////////
-  "nav.back": {
-    "cs": "Zpět",
-    "en": "Back"
-  },
-
-  "month_names": {
-    "cs": [ "leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec" ]
-  },
-
-  "date_input.placeholder": {
-    "cs": "vyberte datum..."
-  },
-
-  //////////////////////////////////////////////////////////
-  // Uvodni strana
-  //////////////////////////////////////////////////////////
-  "dashboard.title": {
-    "cs": "Hodnocení trofejí",
-  },
-
-  "dashboard.new": {
-    "cs": "Nové hodnocení",
-  },
-
-  "dashboard.about": {
-    "cs": "O aplikaci",
-  },
-
-  "dashboard.no_ratings": {
-    "cs": "Zatím nebyla žádná trofej hodnocena, klikněte na Nové hodnocení"
-  },
-
-  "dashboard.date": {
-    "cs": "Lov"
-  },
-
-  "dashboard.hunter": {
-    "cs": "Lovec"
-  },
-
-  "dashboard.trophy": {
-    "cs": "Trofej"
-  },
-
-  "dashboard.points": {
-    "cs": "Body"
-  },
-
-  "dashboard.medal": {
-    "cs": "Medaile"
-  },
-
-
-  //////////////////////////////////////////////////////////
-  // O aplikaci
-  //////////////////////////////////////////////////////////
-   "about.title": {
-    "cs": "O aplikaci"
-  },
-
-  "about.filename": {
-    "cs": "html/about_cs.html"
-  },
-
-  "about.app_name": {
-    "cs": "Hodnocení trofejí"
-  },
-
-  "about.copyright": {
-    "cs": "© Yamaco, 2015"
-  },
-
-  "about.info1": {
-    "cs": "Výpočty: Ing. Karel Janeček, MBA, MSc."
-  },
-
-  "about.info2": {
-    "cs": "Technické řešení: Ing. Pavel Ponížil, Ph.D.",
-  },
-
-  "about.info3": {
-    "cs": "Chcete nám pomoci s překladem do vašeho jazyka? Kontaktujte mě na pavel@kvintech.com."
-  },
-
-  "about.version": {
-    "cs": "Verze"
-  },
-
-  //////////////////////////////////////////////////////////
-  // Nova trofej (obrazovka s volbou zvere)
-  //////////////////////////////////////////////////////////
-  "select_section.title": {
-    "cs": "Nové hodnocení"
-  },
-
-  "select_section.head_text": {
-    "cs": "Zvolte si zvěř, kterou chcete hodnotit."
-  },
-
-  "select_section.foot_text": {
-    "cs": ""
-  },
-
-  "select_section.activate_all": {
-    "cs": "Aktivovat vše"
-  },
-
-  "select_section.activate": {
-    "cs": "aktivovat"
-  },
-
-  "select_section.activate_for": {
-    "cs": "aktivovat za"
-  },
-
-  "select_section.restore_purchases": {
-    "cs": "Obnovit nákupy"
-  },
-
-  "select_section.activate_all_info": {
-    "cs": "Aktivuje kalkulace všech dostupných trofejí."
-  },
-
-
-  //////////////////////////////////////////////////////////
-  // Zadavani parametru trofeje
-  //////////////////////////////////////////////////////////
-   "new_rating_step_1.title": {
-    "cs": "Hodnocení trofejí"
-  },
-
-  "new_rating_step_1.head_text": {
-    "cs": "Všechny údaje jsou v cm (pokud není uvedeno jinak)."
-  },
-
-  "new_rating_step_1.foot_text": {
-    "cs": ""
-  },
-
-  "new_rating_step_1.submit": {
-    "cs": "Pokračovat"
-  },
-
-  "new_rating_step_1.validation_failed": {
-    "cs": "Vyplňte, prosím, všechna pole."
-  },
-
-
-  //////////////////////////////////////////////////////////
-  // Zadavani informaci o datu, mistu a lovci
-  //////////////////////////////////////////////////////////
-
-  "new_rating_step_2.head_text": {
-    "cs": "Vyplňte informace o lovci a místu lovu."
-  },
-
-  "new_rating_step_2.foot_text": {
-    "cs": "Kontakt uvádějte, jen pokud si jej přejete zveřejnit."
-  },
-
-  "new_rating_step_2.age": {
-    "cs": "Odhadnutý věk zvěře"
-  },
-
-  "new_rating_step_2.date": {
-    "cs": "Uloveno"
-  },
-
-  "new_rating_step_2.hunter": {
-    "cs": "Lovec"
-  },
-
-  "new_rating_step_2.contact": {
-    "cs": "Kontakt"
-  },
-
-  "new_rating_step_2.place": {
-    "cs": "Místo"
-  },
-
-  "new_rating_step_2.country": {
-    "cs": "Stát"
-  },
-
-  "new_rating_step_2.photos": {
-    "cs": "Fotografie"
-  },
-
-  "new_rating_step_2.submit": {
-    "cs": "Pokračovat"
-  },
-
-  "new_rating_step_2.choose": {
-    "cs": "Zvolit"
-  },
-
-  "new_rating_step_2.cancel": {
-    "cs": "Zrušit"
-  },
-
-
-  //////////////////////////////////////////////////////////
-  // Obrazovka s výsledkem
-  //////////////////////////////////////////////////////////
-  "new_rating_step_3.publish": {
-    "cs": "Publikuj"
-  },
-
-  "new_rating_step_3.back": {
-    "cs": "Přehled hodnocení"
-  },
-
-  "new_rating_step_3.medal.gold": {
-    "cs": "Zlatá"
-  },
-
-  "new_rating_step_3.medal.silver": {
-    "cs": "Stříbrná"
-  },
-
-  "new_rating_step_3.medal.bronze": {
-    "cs": "Bronzová"
-  },
-
-  "new_rating_step_3.medal.none": {
-    "cs": "Bez medaile"
-  },
-
-  //////////////////////////////////////////////////////////
-  // Nakup
-  //////////////////////////////////////////////////////////
-  "product_purchase.purchase_btn": {
-    "cs": "Koupit"
-  },
-
-  "product_purchase.cancel_btn": {
-    "cs": "Zrušit"
-  },
-
-  "product_purchase.purchased_msg": {
-    "cs": "Nákup proběhl úspěšně."
-  },
-
-  "product_purchase.restored_msg": {
-    "cs": "Dřívější nákupy byly obnoveny."
-  },
-
-  "product_purchase.failed_msg": {
-    "cs": "Nákup selhal."
-  },
-
-  "product_purchase.cancelled_msg": {
-    "cs": "Nákup byl zrušen."
-  },
-
-
-  //////////////////////////////////////////////////////////
-  // ZVER
-  //////////////////////////////////////////////////////////
-
-  // jmena -------------------------------------------------
-  "title.knour": {
-    "cs": "Kňour"
-  },
-
-  "title.jelen": {
-    "cs": "Jelen"
-  },
-
-  "title.danek": {
-    "cs": "Daněk"
-  },
-
-  "title.kamzik": {
-    "cs": "Kamzík"
-  },
-
-  "title.muflon": {
-    "cs": "Muflon"
-  },
-
-  "title.jelenec": {
-    "cs": "Jelenec"
-  },
-
-  "title.sika_dybowskeho": {
-    "cs": "Sika Dybowského"
-  },
-
-  "title.sika_japonsky": {
-    "cs": "Sika Japonský"
-  },
-
-  "title.srnec": {
-    "cs": "Srnec"
-  },
-
-  // zadavane polozky ---------------------------------------
-
-  // KNOUR ---------------------------------------
-
-  "knour.fields.f1": {
-    "cs": "Délka prav. páráku",
-  },
-
-  "knour.fields.f2": {
-    "cs": "Délka lev. páráku"
-  },
-
-  "knour.fields.f3": {
-    "cs": "Šířka prav. páráku"
-  },
-
-  "knour.fields.f4": {
-    "cs": "Šířka lev. páráku"
-  },
-
-  "knour.fields.f5": {
-    "cs": "Obvod prav. klektáku"
-  },
-
-  "knour.fields.f6": {
-    "cs": "Obvod lev. klektáku"
-  },
-
-  "knour.fields.f7": {
-    "cs": "Přirážka - tvar zbraní"
-  },
-
-  "knour.fields.f8": {
-    "cs": "Srážky - nepravideln."
-  },
-
-  // JELEN ---------------------------------------
-
-  "jelen.fields.f1": {
-    "cs": "Délka pravé lodyhy",
-  },
-
-  "jelen.fields.f2": {
-    "cs": "Délka levé lodyhy"
-  },
-
-  "jelen.fields.f3": {
-    "cs": "Délka pravého očníku"
-  },
-
-  "jelen.fields.f4": {
-    "cs": "Délka levého očníku"
-  },
-
-  "jelen.fields.f5": {
-    "cs": "Délka prav. opěráku"
-  },
-
-  "jelen.fields.f6": {
-    "cs": "Délka levého opěráku"
-  },
-
-  "jelen.fields.f7": {
-    "cs": "Obvod pravé růže"
-  },
-
-  "jelen.fields.f8": {
-    "cs": "Obvod levé růže"
-  },
-
-  "jelen.fields.f9": {
-    "cs": "Dolní obvod - pravá"
-  },
-
-  "jelen.fields.f10": {
-    "cs": "Dolní obvod - levá"
-  },
-
-  "jelen.fields.f11": {
-    "cs": "Horní obvod - pravá"
-  },
-
-  "jelen.fields.f12": {
-    "cs": "Horní obvod - levá"
-  },
-
-  "jelen.fields.f13": {
-    "cs": "Počet výsad - pravá"
-  },
-
-  "jelen.fields.f14": {
-    "cs": "Počet výsad - levá"
-  },
-
-  "jelen.fields.f15": {
-    "cs": "Hmotnost trofeje"
-  },
-
-  "jelen.fields.f16": {
-    "cs": "Rozloha"
-  },
-
-  "jelen.fields.f17": {
-    "cs": "Přirážka - barva"
-  },
-
-  "jelen.fields.f18": {
-    "cs": "Přirážka - perlení"
-  },
-
-  "jelen.fields.f19": {
-    "cs": "Přirážka - hroty výsad"
-  },
-
-  "jelen.fields.f20": {
-    "cs": "Přirážka - nadočníky"
-  },
-
-
-  "jelen.fields.f21": {
-    "cs": "Přirážka - koruna"
-  },
-
-  "jelen.fields.f22": {
-    "cs": "Srážky za vady"
-  },
-
-  // DANEK ---------------------------------------
-
-  "danek.fields.f1": {
-    "cs": "Délka pravé lodyhy",
-  },
-
-  "danek.fields.f2": {
-    "cs": "Délka levé lodyhy"
-  },
-
-  "danek.fields.f3": {
-    "cs": "Délka pravého očníku"
-  },
-
-  "danek.fields.f4": {
-    "cs": "Délka levého očníku"
-  },
-
-  "danek.fields.f5": {
-    "cs": "Délka prav. lopaty"
-  },
-
-  "danek.fields.f6": {
-    "cs": "Délka levé lopaty"
-  },
-
-  "danek.fields.f7": {
-    "cs": "Šířka pravé lopaty"
-  },
-
-  "danek.fields.f8": {
-    "cs": "Šířka levé lopaty"
-  },
-
-  "danek.fields.f9": {
-    "cs": "Obvod pravé růže"
-  },
-
-  "danek.fields.f10": {
-    "cs": "Obvod levé růže"
-  },
-
-  "danek.fields.f11": {
-    "cs": "Spodní obvod - pravá"
-  },
-
-  "danek.fields.f12": {
-    "cs": "Spodní obvod - levá"
-  },
-
-  "danek.fields.f13": {
-    "cs": "Horní obvod - pravá"
-  },
-
-  "danek.fields.f14": {
-    "cs": "Horní obvod - levá"
-  },
-
-  "danek.fields.f15": {
-    "cs": "Hmotnost trofeje"
-  },
-
-  "danek.fields.f16": {
-    "cs": "Přirážka - barva"
-  },
-
-  "danek.fields.f17": {
-    "cs": "Přirážka - krajkováné"
-  },
-
-  "danek.fields.f18": {
-    "cs": "Přirážka - vyspělost"
-  },
-
-  "danek.fields.f19": {
-    "cs": "Rozloha"
-  },
-
-  "danek.fields.f20": {
-    "cs": "Srážka - vady lopat"
-  },
-
-  "danek.fields.f21": {
-    "cs": "Srážka - vady krajk."
-  },
-
-  "danek.fields.f22": {
-    "cs": "Srážky - nepravidel."
-  },
-
-
-  // JELENEC ---------------------------------------
-  "jelenec.fields.atyp": {
-    "cs": "Netypické paroží",
-  },
-
-  "jelenec.fields.f1": {
-    "cs": "Vnitřní rozloha lodyh",
-  },
-
-  "jelenec.fields.f2": {
-    "cs": "Celk. délka všech abn. výsad"
-  },
-
-  "jelenec.fields.f3": {
-    "cs": "Délka pravé lodyhy"
-  },
-
-  "jelenec.fields.f4": {
-    "cs": "Délka levé lodyhy"
-  },
-
-  "jelenec.fields.f5": {
-    "cs": "Délka 1. pravé výsady"
-  },
-
-  "jelenec.fields.f6": {
-    "cs": "Délka 1. levé výsady"
-  },
-
-  "jelenec.fields.f7": {
-    "cs": "Délka 2. pravé výsady"
-  },
-
-  "jelenec.fields.f8": {
-    "cs": "Délka 2. levé výsady"
-  },
-
-  "jelenec.fields.f9": {
-    "cs": "Délka 3. pravé výsady"
-  },
-
-  "jelenec.fields.f10": {
-    "cs": "Délka 3. levé výsady"
-  },
-
-  "jelenec.fields.f11": {
-    "cs": "Délka 4. pravé výsady"
-  },
-
-  "jelenec.fields.f12": {
-    "cs": "Délka 4. levé výsady"
-  },
-
-  "jelenec.fields.f13": {
-    "cs": "Délka 5. pravé výsady"
-  },
-
-  "jelenec.fields.f14": {
-    "cs": "Délka 5. levé výsady"
-  },
-
-  "jelenec.fields.f15": {
-    "cs": "Délka 6. pravé výsady"
-  },
-
-  "jelenec.fields.f16": {
-    "cs": "Délka 6. levé výsady"
-  },
-
-  "jelenec.fields.f17": {
-    "cs": "Délka 7. pravé výsady"
-  },
-
-  "jelenec.fields.f18": {
-    "cs": "Délka 7. levé výsady"
-  },
-
-  "jelenec.fields.f19": {
-    "cs": "Obvod pravé lodyhy R/1.v"
-  },
-
-  "jelenec.fields.f20": {
-    "cs": "Obvod levé lodyhy R/1.v"
-  },
-
-  "jelenec.fields.f21": {
-    "cs": "Obvod pravé lodyhy 1.v/2.v"
-  },
-
-  "jelenec.fields.f22": {
-    "cs": "Obvod levé lodyhy 1.v/2.v"
-  },
-
-  "jelenec.fields.f23": {
-    "cs": "Obvod pravé lodyhy 2.v/3.v"
-  },
-
-  "jelenec.fields.f24": {
-    "cs": "Obvod levé lodyhy 2.v/3.v"
-  },
-
-  "jelenec.fields.f25": {
-    "cs": "Obvod pravé lodyhy 3.v/4.v"
-  },
-
-  "jelenec.fields.f26": {
-    "cs": "Obvod levé lodyhy 3.v/4.v"
-  },
-
-  // KAMZIK ---------------------------------------
-
-  "kamzik.fields.f1": {
-    "cs": "Délka pravého růžku",
-  },
-
-  "kamzik.fields.f2": {
-    "cs": "Délka levého růžku"
-  },
-
-  "kamzik.fields.f3": {
-    "cs": "Obvod silnějšího růžku"
-  },
-
-  "kamzik.fields.f4": {
-    "cs": "Výška růžků"
-  },
-
-  "kamzik.fields.f5": {
-    "cs": "Rozloha růžků"
-  },
-
-  "kamzik.fields.f6": {
-    "cs": "Přirážka - stáří"
-  },
-
-  "kamzik.fields.f7": {
-    "cs": "Srážka - zasmolení"
-  },
-
-
-  // MUFLON ---------------------------------------
-
-  "muflon.fields.f1": {
-    "cs": "Délka pravého toulce",
-  },
-
-  "muflon.fields.f2": {
-    "cs": "Délka levého toulce"
-  },
-
-  "muflon.fields.f3": {
-    "cs": "Obvod prav. toul. 1/3"
-  },
-
-  "muflon.fields.f4": {
-    "cs": "Obvod lev. toul. 1/3"
-  },
-
-  "muflon.fields.f5": {
-    "cs": "Obvod prav. toul. 2/3"
-  },
-
-  "muflon.fields.f6": {
-    "cs": "Obvod lev. toul. 2/3"
-  },
-
-  "muflon.fields.f7": {
-    "cs": "Obvod prav. toul 3/3"
-  },
-
-  "muflon.fields.f8": {
-    "cs": "Obvod lev. toul 3/3"
-  },
-
-  "muflon.fields.f9": {
-    "cs": "Rozloha toulců"
-  },
-
-  "muflon.fields.f10": {
-    "cs": "Přirážka - barva"
-  },
-
-  "muflon.fields.f11": {
-    "cs": "Přirážka - vrubování"
-  },
-
-  "muflon.fields.f12": {
-    "cs": "Přirážka - vinutí",
-  },
-
-  "muflon.fields.f13": {
-    "cs": "Srážka na vzhled"
-  },
-
-  "muflon.fields.f14": {
-    "cs": "Rozpětí toulců"
-  },
-
-
-  // SIKA ---------------------------------------
-
-  "sika.fields.f1": {
-    "cs": "Délka pravé lodyhy"
-  },
-
-  "sika.fields.f2": {
-    "cs": "Délka levé lodyhy"
-  },
-
-  "sika.fields.f3": {
-    "cs": "Vnitřní rozloha"
-  },
-
-  "sika.fields.f4": {
-    "cs": "Délka 1. abnorm. výsady"
-  },
-
-  "sika.fields.f5": {
-    "cs": "Délka 2. abnorm. výsady"
-  },
-
-  "sika.fields.f6": {
-    "cs": "Délka 3. abnorm. výsady"
-  },
-
-  "sika.fields.f7": {
-    "cs": "Délka 4. abnorm. výsady"
-  },
-
-  "sika.fields.f8": {
-    "cs": "Délka 1. pravé výsady"
-  },
-
-  "sika.fields.f9": {
-    "cs": "Délka 1. levé výsady"
-  },
-
-  "sika.fields.f10": {
-    "cs": "Délka 2. pravé výsady"
-  },
-
-  "sika.fields.f11": {
-    "cs": "Délka 2. levé výsady"
-  },
-
-  "sika.fields.f12": {
-    "cs": "Délka 3. pravé výsady"
-  },
-
-  "sika.fields.f13": {
-    "cs": "Délka 3. levé výsady"
-  },
-
-  "sika.fields.f14": {
-    "cs": "Délka 4. pravé výsady"
-  },
-
-  "sika.fields.f15": {
-    "cs": "Délka 4. levé výsady"
-  },
-
-  "sika.fields.f16": {
-    "cs": "Délka 5. pravé výsady"
-  },
-
-  "sika.fields.f17": {
-    "cs": "Délka 5. levé výsady"
-  },
-
-  "sika.fields.f18": {
-    "cs": "Spod. obvod pravý"
-  },
-
-  "sika.fields.f19": {
-    "cs": "Spod. obvod levý"
-  },
-
-  "sika.fields.f20": {
-    "cs": "Horní obvod pravý"
-  },
-
-  "sika.fields.f21": {
-    "cs": "Horní obvod levý"
-  },
-
-  // SRNEC ---------------------------------------
-
-  "srnec.fields.f1": {
-    "cs": "Délka pravé lodyhy"
-  },
-
-  "srnec.fields.f2": {
-    "cs": "Délka levé lodyhy"
-  },
-
-  "srnec.fields.f3": {
-    "cs": "Hmotnost trofeje (g)"
-  },
-
-  "srnec.fields.f4": {
-    "cs": "Objem parůžků"
-  },
-
-  "srnec.fields.f5": {
-    "cs": "Rozloha"
-  },
-
-  "srnec.fields.f6": {
-    "cs": "Přirážka barva"
-  },
-
-  "srnec.fields.f7": {
-    "cs": "Přirážka perlení"
-  },
-
-  "srnec.fields.f8": {
-    "cs": "Přirážka růže"
-  },
-
-  "srnec.fields.f9": {
-    "cs": "Přirážka hroty výsad"
-  },
-
-  "srnec.fields.f10": {
-    "cs": "Přirážka pravidelnost"
-  },
-
-  "srnec.fields.f11": {
-    "cs": "Přirážka vyspělost"
-  },
-
-  "srnec.fields.f12": {
-    "cs": "Srážky na vady"
-  },
-
+"main_short_label": { "cs": "Trofeje", "en": "Trophies" },
+"basic_label": { "cs": "Lovecké trofeje", "en": "Assessment of Trophies" },
+"mail_label": { "cs": "Hodnocení loveckých trofejí", "en": "Assessment of hunting trophies" },
+"nav.back": { "cs": "Zpět", "en": "Back" },
+"month_names": { "cs": [ "leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec"], "en": [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] },
+"date_input.placeholder": { "cs": "vyberte datum...", "en": "choose a date..." },
+"dashboard.title": { "cs": "Hodnocení trofejí", "en": "Trophies assessment" },
+"dashboard.new": { "cs": "Nový protokol", "en": "New protocol" },
+"dashboard.about": { "cs": "O aplikaci", "en": "About" },
+"dashboard.no_ratings": { "cs": "Zatím nebyla žádná trofej hodnocena, klikněte na Nové hodnocení", "en": "No trophy has been assessed yet, please click on New protocol" },
+"dashboard.date": { "cs": "Datum\nlovu", "en": "Date of\nhunt" },
+"dashboard.hunter": { "cs": "Lovec", "en": "Hunters name" },
+"dashboard.trophy": { "cs": "Trofej", "en": "Trophies" },
+"dashboard.points": { "cs": "Body\ncelkem", "en": "Total\npoints" },
+"dashboard.medal": { "cs": "Medaile", "en": "Medal" },
+"about.title": { "cs": "O aplikaci", "en": "About" },
+"about.filename": { "cs": "html/about_cs.html", "en": "html/about_cs.html" },
+"about.app_name": { "cs": "Hodnocení trofejí", "en": "Trophies assessment" },
+"about.copyright": { "cs": "© Yamaco, Kvintech 2015", "en": "© Yamaco, Kvintech 2015" },
+"about.info1": { "cs": "Výpočty: Ing. Karel Janeček, MBA, MSc.", "en": "Calculations: Ing. Karel Janeček, MBA, MSc." },
+"about.info2": { "cs": "Technické řešení: Ing. Pavel Ponížil, Ph.D.", "en": "Technical solution: Dr. Pavel Ponížil" },
+"about.info3": { "cs": "Chcete nám pomoci s překladem do vašeho jazyka? Kontaktujte mě na translate@kvintech.com", "en": "Would you like to help us with translation the app into your language? Please contact me at translate@kvintech.com" },
+"about.version": { "cs": "Verze", "en": "Version" },
+"select_section.title": { "cs": "Nový protokol", "en": "New protocol" },
+"select_section.head_text": { "cs": "Zvolte si zvěř, kterou chcete hodnotit.", "en": "No trophy has been assessed yet, please click on New protocol" },
+"select_section.foot_text": { "cs": "", "en": "" },
+"select_section.activate_all": { "cs": "Aktivovat vše", "en": "Activate all" },
+"select_section.activate": { "cs": "aktivovat", "en": "activate" },
+"select_section.activate_for": { "cs": "aktivovat za", "en": "activate for" },
+"select_section.restore_purchases": { "cs": "Obnovit nákupy", "en": "Renew purchases" },
+"select_section.activate_all_info": { "cs": "Aktivuje kalkulace všech dostupných trofejí.", "en": "Activates all available trophies calculations" },
+"new_rating_step_1.title": { "cs": "Hodnocení trofejí", "en": "Trophies assessment" },
+"new_rating_step_1.head_text": { "cs": "", "en": "" },
+"new_rating_step_1.foot_text": { "cs": "", "en": "" },
+"new_rating_step_1.submit": { "cs": "Pokračovat", "en": "Continue" },
+"new_rating_step_1.validation_failed": { "cs": "Vyplňte, prosím, všechna pole.", "en": "Fill in all the fields please." },
+"new_rating_step_2.head_text": { "cs": "Vyplňte informace o lovci a místu lovu.", "en": "Fill in information about hunter and place of hunting please." },
+"new_rating_step_2.foot_text": { "cs": "Kontakt uvádějte, jen pokud si jej přejete zveřejnit.", "en": "Provide your contact information only if you wish to publish them." },
+"new_rating_step_2.age": { "cs": "Odhad věku", "en": "Age estimation" },
+"new_rating_step_2.date": { "cs": "Datum lovu  (uloveno)", "en": "Date of hunt (hunted)" },
+"new_rating_step_2.hunter": { "cs": "Lovec", "en": "Hunters name" },
+"new_rating_step_2.contact": { "cs": "Kontakt", "en": "Hunters contact" },
+"new_rating_step_2.place": { "cs": "Místo lovu", "en": "Place of hunt" },
+"new_rating_step_2.country": { "cs": "Stát", "en": "Country" },
+"new_rating_step_2.photos": { "cs": "Fotografie", "en": "Pictures" },
+"new_rating_step_2.submit": { "cs": "Pokračovat", "en": "Continue" },
+"new_rating_step_2.choose": { "cs": "Zvolit", "en": "Choose" },
+"new_rating_step_2.cancel": { "cs": "Zrušit", "en": "Cancel" },
+"new_rating_step_3.publish": { "cs": "Publikuj", "en": "Publish" },
+"new_rating_step_3.back": { "cs": "Přehled hodnocení", "en": "List of protocols" },
+"new_rating_step_3.medal.gold": { "cs": "zlatá medaile", "en": "gold medal" },
+"new_rating_step_3.medal.silver": { "cs": "stříbrná medaile", "en": "silver medal" },
+"new_rating_step_3.medal.bronze": { "cs": "bronzová medaile", "en": "bronze medal" },
+"new_rating_step_3.medal.none": { "cs": "bez medailové hodnoty", "en": "no medal" },
+"new_rating_step_3.trophy": { "cs": "Zvěř", "en": "Trophy" },
+
+"new_rating_step_3.positive_points": { "cs": "Kladné body", "en": "Positive points" },
+"new_rating_step_3.negative_points": { "cs": "Záporné body", "en": "Negative points" },
+"new_rating_step_3.total_points": { "cs": "Body celkem", "en": "Total points" },
+
+"product_purchase.purchase_btn": { "cs": "Koupit", "en": "Buy" },
+"product_purchase.cancel_btn": { "cs": "Zrušit", "en": "Cancel" },
+"product_purchase.purchased_msg": { "cs": "Nákup proběhl úspěšně", "en": "Purchase has been successfull" },
+"product_purchase.restored_msg": { "cs": "Dřívější nákupy byly obnoveny.", "en": "All previous purchases have been restored." },
+"product_purchase.failed_msg": { "cs": "Nákup selhal", "en": "Purchase failure" },
+"product_purchase.cancelled_msg": { "cs": "Nákup byl zrušen.", "en": "Purchase cancelled" },
+"title.knour": { "cs": "Kňour", "en": "Wildboar" },
+"title.jelen": { "cs": "Jelen evropský", "en": "Red Deer" },
+"title.danek": { "cs": "Daněk skvrnitý", "en": "Fallow Deer" },
+"title.kamzik": { "cs": "Kamzík horský", "en": "Chamois" },
+"title.muflon": { "cs": "Muflon", "en": "European Mouflon" },
+"title.jelenec": { "cs": "Jelenec běloocasý", "en": "White-tailed Deer" },
+"title.sika_dybowskeho": { "cs": "Sika Dybowského", "en": "Sika deer (Dybow)" },
+"title.sika_japonsky": { "cs": "Sika japonský", "en": "Sika deer (japanese)" },
+"title.srnec": { "cs": "Srnec obecný", "en": "Roe Deer" },
+"send.web.ok": { "cs": "Data se podařilo odeslat úspěšně na server", "en": "Data was succesfully sent to the server" },
+"send.web.error": { "cs": "Data se nepodařilo odeslat na server. Vyzkoušejte to později prosím.", "en": "Data was not sent to the server. Try it later again, please." },
+"knour.fields.f01": { "cs": "Délka pravého páráku [cm]", "en": "Length of right lower tusk [cm]" },
+"knour.fields.f02": { "cs": "Délka levého páráku [cm]", "en": "Length of left lower tusk [cm]" },
+"knour.fields.f03": { "cs": "Šířka pravého páráku [mm]", "en": "Width of right lower tusk [mm]" },
+"knour.fields.f04": { "cs": "Šířka levého páráku [mm]", "en": "Width of left lower tusk [mm]" },
+"knour.fields.f05": { "cs": "Obvod pravého klektáku [cm]", "en": "Circumference of right upper tusk [cm]" },
+"knour.fields.f06": { "cs": "Obvod levého klektáku [cm]", "en": "Circumference of left upper tusk [cm]" },
+"knour.fields.f07": { "cs": "Přirážka - tvar zbraní [0-3]", "en": "Addition - shape [0-3]" },
+"knour.fields.f08": { "cs": "Srážka na nepravidelnost [0-3]", "en": "Deduction - asymmetry [0-3]" },
+"jelen.fields.f01": { "cs": "Délka pravé lodyhy [cm]", "en": "Length of right beam [cm]" },
+"jelen.fields.f02": { "cs": "Délka levé lodyhy [cm]", "en": "Length of left beam [cm]" },
+"jelen.fields.f03": { "cs": "Délka pravého očníku [cm]", "en": "Length of right brow tine [cm]" },
+"jelen.fields.f04": { "cs": "Délka levého očníku [cm]", "en": "Length of left brow tine [cm]" },
+"jelen.fields.f05": { "cs": "Délka pravého opěráku [cm]", "en": "Length of right tray tine [cm]" },
+"jelen.fields.f06": { "cs": "Délka levého opěráku [cm]", "en": "Length of left tray tine [cm]" },
+"jelen.fields.f07": { "cs": "Obvod pravé růže [cm]", "en": "Circumference of right coronet [cm]" },
+"jelen.fields.f08": { "cs": "Obvod levé růže [cm]", "en": "Circumference of left coronet [cm]" },
+"jelen.fields.f09": { "cs": "Spodní obvod - pravá [cm]", "en": "Lower right beam circumference [cm]" },
+"jelen.fields.f10": { "cs": "Spodní obvod - levá [cm]", "en": "Lower left beam circumference [cm]" },
+"jelen.fields.f11": { "cs": "Horní obvod - pravá  [cm]", "en": "Upper right beam circumference [cm]" },
+"jelen.fields.f12": { "cs": "Horní obvod - levá  [cm]", "en": "Upper left beam circumference [cm]" },
+"jelen.fields.f13": { "cs": "Počet výsad - pravá  [cm]", "en": "Number of tines - right [cm]" },
+"jelen.fields.f14": { "cs": "Počet výsad - levá  [cm]", "en": "Number of tines - left [cm]" },
+"jelen.fields.f15": { "cs": "Hmotnost trofeje [kg]", "en": "Weight of trophy [kg]" },
+"jelen.fields.f16": { "cs": "Rozloha [cm]", "en": "Inside spread [cm]" },
+"jelen.fields.f17": { "cs": "Přirážka - barva [0-2]", "en": "Addition - color [0-2]" },
+"jelen.fields.f18": { "cs": "Přirážka - perlení [0-2]", "en": "Addition - pearling [0-2]" },
+"jelen.fields.f19": { "cs": "Přirážka - hroty výsad [0-2]", "en": "Addition - tips of tines [0-2]" },
+"jelen.fields.f20": { "cs": "Přirážka - nadočníky [0-2]", "en": "Addition - bay tines [0-2]" },
+"jelen.fields.f21": { "cs": "Přirážka - koruna [0-10]", "en": "Addition - crowns [0-10]" },
+"jelen.fields.f22": { "cs": "Srážky na vady [0-3]", "en": "Deductions [0-3]" },
+"danek.fields.f01": { "cs": "Délka pravé lodyhy [cm]", "en": "Length of right beam [cm]" },
+"danek.fields.f02": { "cs": "Délka levé lodyhy [cm]", "en": "Length of left beam [cm]" },
+"danek.fields.f03": { "cs": "Délka pravého očníku [cm]", "en": "Length of right brow tine [cm]" },
+"danek.fields.f04": { "cs": "Délka levého očníku [cm]", "en": "Length of left brow tine [cm]" },
+"danek.fields.f05": { "cs": "Délka pravé lopaty [cm]", "en": "Length of right palm [cm]" },
+"danek.fields.f06": { "cs": "Délka levé lopaty [cm]", "en": "Length of left palm [cm]" },
+"danek.fields.f07": { "cs": "Šířka pravé lopaty [cm]", "en": "Width of right palm [cm]" },
+"danek.fields.f08": { "cs": "Šířka levé lopaty [cm]", "en": "Width of left palm [cm]" },
+"danek.fields.f09": { "cs": "Obvod pravé růže [cm]", "en": "Circumference of right coronet [cm]" },
+"danek.fields.f10": { "cs": "Obvod levé růže [cm]", "en": "Circumference of left coronet [cm]" },
+"danek.fields.f11": { "cs": "Spodní obvod - pravá [cm]", "en": "Lower right beam circumference [cm]" },
+"danek.fields.f12": { "cs": "Spodní obvod - levá [cm]", "en": "Lower left beam circumference [cm]" },
+"danek.fields.f13": { "cs": "Horní obvod - pravá [cm]", "en": "Upper right beam circumference [cm]" },
+"danek.fields.f14": { "cs": "Horní obvod - levá [cm]", "en": "Upper left beam circumference [cm]" },
+"danek.fields.f15": { "cs": "Hmotnost trofeje [kg]", "en": "Weight of trophy [kg]" },
+"danek.fields.f16": { "cs": "Přirážka - barva [0-2]", "en": "Addition - color [0-2]" },
+"danek.fields.f17": { "cs": "Přirážka - krajkování [0-6]", "en": "Addition - tines of palm [0-6]" },
+"danek.fields.f18": { "cs": "Přirážka - vyspělost [0-5]", "en": "Addition - mass, shape [0-5]" },
+"danek.fields.f19": { "cs": "Rozloha [cm]", "en": "Inside spread [cm]" },
+"danek.fields.f20": { "cs": "Srážka - vady lopat [0-10]", "en": "Deduction - form of palms [0-10]" },
+"danek.fields.f21": { "cs": "Srážka - vady krajkování [0-2]", "en": "Deduction - edges of palms [0-2]" },
+"danek.fields.f22": { "cs": "Srážka na nepravidelnost [0-6]", "en": "Deduction - asymmetry [0-6]" },
+"jelenec.fields.atyp": { "cs": "Atypické paroží", "en": "Atypical antlers" },
+"jelenec.fields.f01": { "cs": "Vnitřní rozloha [cm]", "en": "Inside spread [cm]" },
+"jelenec.fields.f02": { "cs": "Délka všech abnormálních výsad [cm]", "en": "Length of abnormal tines [cm]" },
+"jelenec.fields.f03": { "cs": "Délka pravé lodyhy [cm]", "en": "Length of right beam [cm]" },
+"jelenec.fields.f04": { "cs": "Délka levé lodyhy [cm]", "en": "Length of left beam [cm]" },
+"jelenec.fields.f05": { "cs": "Délka 1.pravé výsady [cm]", "en": "Length of 1.right tine [cm]" },
+"jelenec.fields.f06": { "cs": "Délka 1.levé výsady [cm]", "en": "Length of 1.left tine [cm]" },
+"jelenec.fields.f07": { "cs": "Délka 2.pravé výsady [cm]", "en": "Length of 2.right tine [cm]" },
+"jelenec.fields.f08": { "cs": "Délka 2.levé výsady [cm]", "en": "Length of 2.left tine [cm]" },
+"jelenec.fields.f09": { "cs": "Délka 3.pravé výsady [cm]", "en": "Length of 3.right tine [cm]" },
+"jelenec.fields.f10": { "cs": "Délka 3.levé výsady [cm]", "en": "Length of 3.left tine [cm]" },
+"jelenec.fields.f11": { "cs": "Délka 4.pravé výsady [cm]", "en": "Length of 4.right tine [cm]" },
+"jelenec.fields.f12": { "cs": "Délka 4.levé výsady [cm]", "en": "Length of 4.left tine [cm]" },
+"jelenec.fields.f13": { "cs": "Délka 5.pravé výsady [cm]", "en": "Length of 5.right tine [cm]" },
+"jelenec.fields.f14": { "cs": "Délka 5.levé výsady [cm]", "en": "Length of 5.left tine [cm]" },
+"jelenec.fields.f15": { "cs": "Délka 6.pravé výsady [cm]", "en": "Length of 6.right tine [cm]" },
+"jelenec.fields.f16": { "cs": "Délka 6.levé výsady [cm]", "en": "Length of 6.left tine [cm]" },
+"jelenec.fields.f17": { "cs": "Délka 7.pravé výsady [cm]", "en": "Length of 7.right tine [cm]" },
+"jelenec.fields.f18": { "cs": "Délka 7.levé výsady [cm]", "en": "Length of 7.left tine [cm]" },
+"jelenec.fields.f19": { "cs": "Obvod pravé lodyhy R/1.v [cm]", "en": "Right beam circumference C/1.t [cm]" },
+"jelenec.fields.f20": { "cs": "Obvod levé lodyhy R/1.v [cm]", "en": "Left beam circumference C/1.t [cm]" },
+"jelenec.fields.f21": { "cs": "Obvod pravé lodyhy 1.v/2.v [cm]", "en": "Right beam circumference 1.t./2.t [cm]" },
+"jelenec.fields.f22": { "cs": "Obvod levé lodyhy 1.v/2.v [cm]", "en": "Left beam circumference 1.t./2.t [cm]" },
+"jelenec.fields.f23": { "cs": "Obvod pravé lodyhy 2.v/3.v [cm]", "en": "Right beam circumference 2.t./3.t [cm]" },
+"jelenec.fields.f24": { "cs": "Obvod levé lodyhy 2.v/3.v [cm]", "en": "Left beam circumference 2.t./3.t [cm]" },
+"jelenec.fields.f25": { "cs": "Obvod pravé lodyhy 3.v/4.v [cm]", "en": "Right beam circumference 3.t./4.t [cm]" },
+"jelenec.fields.f26": { "cs": "Obvod levé lodyhy 3.v/4.v [cm]", "en": "Left beam circumference 3.t./4.t [cm]" },
+"kamzik.fields.f01": { "cs": "Délka pravého růžku [cm]", "en": "Length of left horn [cm]" },
+"kamzik.fields.f02": { "cs": "Délka levého růžku [cm]", "en": "Circumference of the strongest horn [cm]" },
+"kamzik.fields.f03": { "cs": "Obvod silnějšího růžku [cm]", "en": "Height of horns [cm]" },
+"kamzik.fields.f04": { "cs": "Výška růžků [cm]", "en": "Height of horns [cm]" },
+"kamzik.fields.f05": { "cs": "Rozloha růžků [cm]", "en": "Spread of horns [cm]" },
+"kamzik.fields.f06": { "cs": "Přirážka - věk [0-3]", "en": "Addition - age [0-3]" },
+"kamzik.fields.f07": { "cs": "Srážka - zasmolení [0-5]", "en": "Deduction - horn deposit [0-5]" },
+"muflon.fields.f01": { "cs": "Délka pravého toulce [cm]", "en": "Length of right horn [cm]" },
+"muflon.fields.f02": { "cs": "Délka levého toulce [cm]", "en": "Length of left horn [cm]" },
+"muflon.fields.f03": { "cs": "Obvod pravého toulce 1/3 [cm]", "en": "Circumference of right horn in 1/3 [cm]" },
+"muflon.fields.f04": { "cs": "Obvod levého toulce 1/3 [cm]", "en": "Circumference of left horn in 1/3 [cm]" },
+"muflon.fields.f05": { "cs": "Obvod pravého toulce 2/3 [cm]", "en": "Circumference of right horn in 2/3 [cm]" },
+"muflon.fields.f06": { "cs": "Obvod levého toulce 2/3 [cm]", "en": "Circumference of left horn in 2/3 [cm]" },
+"muflon.fields.f07": { "cs": "Obvod pravého toulce 3/3 [cm]", "en": "Circumference of right horn in 3/3 [cm]" },
+"muflon.fields.f08": { "cs": "Obvod levého toulce 3/3 [cm]", "en": "Circumference of left horn in 3/3 [cm]" },
+"muflon.fields.f09": { "cs": "Rozloha toulců [cm]", "en": "Spread of horns [cm]" },
+"muflon.fields.f10": { "cs": "Přirážka - barva [0-3]", "en": "Addition - color [0-3]" },
+"muflon.fields.f11": { "cs": "Přirážka - vrubování [0-3]", "en": "Addition - groove [0-3]" },
+"muflon.fields.f12": { "cs": "Přirážka - vinutí [0-5]", "en": "Addition - rotation [0-5]" },
+"muflon.fields.f13": { "cs": "Srážka na vzhled - tvar [0-2]", "en": "Deduction - shape [0-2]" },
+"muflon.fields.f14": { "cs": "Rozpětí toulců [cm]", "en": "Tip to tip spread [cm]" },
+"sika.fields.f01": { "cs": "Délka pravé lodyhy [cm]", "en": "Length of right beam [cm]" },
+"sika.fields.f02": { "cs": "Délka levé lodyhy [cm]", "en": "Length of left beam [cm]" },
+"sika.fields.f03": { "cs": "Vnitřní rozloha [cm]", "en": "Inside spread [cm]" },
+"sika.fields.f04": { "cs": "Délka 1.abnorm.výsady [cm]", "en": "Length of 1.abnormal tine [cm]" },
+"sika.fields.f05": { "cs": "Délka 2.abnorm.výsady [cm]", "en": "Length of 2.abnormal tine [cm]" },
+"sika.fields.f06": { "cs": "Délka 3.abnorm.výsady [cm]", "en": "Length of 3.abnormal tine [cm]" },
+"sika.fields.f07": { "cs": "Délka 4.abnorm.výsady [cm]", "en": "Length of 4.abnormal tine [cm]" },
+"sika.fields.f08": { "cs": "Délka 1.pravé výsady [cm]", "en": "Length of 1.right tine [cm]" },
+"sika.fields.f09": { "cs": "Délka 1.levé výsady [cm]", "en": "Length of 1.left tine [cm]" },
+"sika.fields.f10": { "cs": "Délka 2.pravé výsady [cm]", "en": "Length of 2.right tine [cm]" },
+"sika.fields.f11": { "cs": "Délka 2.levé výsady [cm]", "en": "Length of 2.left tine [cm]" },
+"sika.fields.f12": { "cs": "Délka 3.pravé výsady [cm]", "en": "Length of 3.right tine [cm]" },
+"sika.fields.f13": { "cs": "Délka 3.levé výsady [cm]", "en": "Length of 3.left tine [cm]" },
+"sika.fields.f14": { "cs": "Délka 4.pravé výsady [cm]", "en": "Length of 4.right tine [cm]" },
+"sika.fields.f15": { "cs": "Délka 4.levé výsady [cm]", "en": "Length of 4.left tine [cm]" },
+"sika.fields.f16": { "cs": "Délka 5.pravé výsady [cm]", "en": "Length of 5.right tine [cm]" },
+"sika.fields.f17": { "cs": "Délka 5.levé výsady [cm]", "en": "Length of 5.left tine [cm]" },
+"sika.fields.f18": { "cs": "Spodní obvod - pravá [cm]", "en": "Lower right beam circumference [cm]" },
+"sika.fields.f19": { "cs": "Spodní obvod - levá [cm]", "en": "Lower left beam circumference [cm]" },
+"sika.fields.f20": { "cs": "Horní obvod - pravá [cm]", "en": "Upper right beam circumference [cm]" },
+"sika.fields.f21": { "cs": "Horní obvod - levá [cm]", "en": "Upper left beam circumference [cm]" },
 }

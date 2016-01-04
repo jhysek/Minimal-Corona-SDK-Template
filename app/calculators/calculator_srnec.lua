@@ -6,7 +6,7 @@ local GenericCalculator = require "app.calculators.generic_calculator"
 local Calculator = class("Calculator", GenericCalculator)
 
 Calculator.required_inputs = {
-  "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12"
+  "f01", "f02", "f03", "f04", "f05", "f06", "f07", "f08", "f09", "f10", "f11", "f12"
 }
 
 --------------------------------------------------------------------------------
@@ -25,16 +25,16 @@ function Calculator:compute()
   local body      = {}
   local vypoctene = {}
 
-  vypoctene[1] = (inp.f1 + inp.f2) / 2
+  vypoctene[1] = (inp.f01 + inp.f02) / 2
   body[1]      = vypoctene[1] * 0.5
 
-  vypoctene[2] = inp.f3
+  vypoctene[2] = inp.f03
   body[2]      = vypoctene[2] * 0.1
 
-  vypoctene[3] = inp.f4
+  vypoctene[3] = inp.f04
   body[3]      = vypoctene[3] * 0.3
 
-  vypoctene[4] = inp.f5 / vypoctene[1]
+  vypoctene[4] = inp.f05 / vypoctene[1]
   if vypoctene[4] <= 0.3 or vypoctene[4] > 0.75 then
     body[4] = 0
 
@@ -51,16 +51,16 @@ function Calculator:compute()
     body[4] = 4
   end
 
-  vypoctene[5] = inp.f6
+  vypoctene[5] = inp.f06
   body[5]      = vypoctene[5]
 
-  vypoctene[6] = inp.f7
+  vypoctene[6] = inp.f07
   body[6]      = vypoctene[6]
 
-  vypoctene[7] = inp.f8
+  vypoctene[7] = inp.f08
   body[7]      = vypoctene[7]
 
-  vypoctene[8] = inp.f9
+  vypoctene[8] = inp.f09
   body[8]      = vypoctene[8]
 
   vypoctene[9] = inp.f10

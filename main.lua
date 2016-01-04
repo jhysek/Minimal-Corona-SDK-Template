@@ -17,6 +17,7 @@ inspect = require "lib.inspect"
 
 require "lib.screenshot"
 
+require "lib.string"
 require "lib.settings"
 require "app.db.schema"
 

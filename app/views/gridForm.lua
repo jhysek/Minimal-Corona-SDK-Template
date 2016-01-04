@@ -244,7 +244,7 @@ function Form:renderItem(event)
   local field = event.row.params
 
   local label_align = "left"
-  local label_width = self.fieldList.width * 0.6
+  local label_width = self.fieldList.width * (self.options.label_width or 0.6)
   local input_width = self.fieldList.width - label_width
   local label_font_size = 15
   local label_x = -_AW/2 + 20
@@ -356,7 +356,7 @@ function Form:renderItem(event)
       fontSize = label_font_size,
       font = native.systemFont,
       x = label_x,
-      width = label_width,
+      width = label_width - 10,
       align = label_align,
       y = 0 -- self.fieldList.options.item_height / 2
     })

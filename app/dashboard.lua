@@ -129,12 +129,16 @@ local function onRowRender(event)
     syncBg.isVisible = false
     syncBg:addEventListener("tap", function(e)
       Server.publishRating(rating, function()
-        Rating:update(rating.id, { synchronized_at = os.time() })
         redrawList(sceneGroup)
       end)
     end)
 
-    local filename = rating.synchronized_at and "ok" or "exclamation"
+    local filename = 'waiting'
+    local rating = Rating:get(rating.id)
+    if rating.sync_state then
+      filename = rating.sync_state == 'ok' and "ok" or "exclamation"
+    end
+
     local sync_state = display.newImage(row, 'assets/btn_' .. filename .. '.png', _R - 5, 30)
     sync_state.anchorX = 1
     Scaling.scaleToFit(sync_state, 25, 25)
@@ -145,6 +149,7 @@ redrawList = function(group)
   if list then
     list:deleteAllRows()
     list:removeSelf()
+    list = nil
   end
 
   list = widget.newTableView({
@@ -161,7 +166,7 @@ redrawList = function(group)
     lineColor = { 0.90, 0.90, 0.90 },
   })
 
-  Rating.orderBy = "date DESC"
+  Rating.orderBy = "sort_date DESC, id DESC"
   Rating:all(function(r)
     list:insertRow({
       rowHeight = 60,
@@ -220,9 +225,23 @@ end
 
 function scene:show(event)
   if ( event.phase == "will" ) then
+    self.redrawing = true
     self:redrawScene()
+    self.redrawing = false
   end
 end
+
+Runtime:addEventListener("upload_finished", function()
+  timer.performWithDelay(1000, function()
+    if scene.redrawing or not list then
+      timer.performWithDelay(500, function()
+        redrawList(sceneGroup)
+      end)
+    else
+      redrawList(sceneGroup)
+    end
+  end)
+end)
 
 scene:addEventListener( "create", scene)
 scene:addEventListener( "show", scene)

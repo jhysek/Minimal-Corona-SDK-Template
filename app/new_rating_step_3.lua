@@ -18,8 +18,14 @@ local backBtn
 local sceneGroup
 
 local function publish()
+  local date_parts = values.date:split(".")
+  local sort_date = string.format("%04d", date_parts[3]) ..
+                    string.format("%02d", date_parts[2]) ..
+                    string.format("%02d", date_parts[1])
+
   local rating_id = Rating:insert({
     date     = values.date,
+    sort_date = sort_date,
     hunter   = values.hunter,
     animal   = code,
     rating   = calculator.soucet,
@@ -42,10 +48,8 @@ local function publish()
 
   if appconfig.api_server_url then
     local rating = Rating:get(rating_id)
-    local xml = Xml.generate(rating)
-    timer.performWithDelay(20, function()
- --     Server.publish(xml)
-      print(inspect(xml))
+    Server.publishRating(rating, function()
+      Runtime:dispatchEvent({name = "upload_finished", target = rating.id})
     end)
   end
 
@@ -58,14 +62,14 @@ local function prepareFormData(params)
   local calculator = params.calculator
 
   return {
-    { name = "lov", label = "Lov", default = params.values.date },
-    { name = "lovec", label = "Lovec", default = params.values.hunter },
-    { name = "zver", label = "Zvěř", default = T:t("title." .. params.code) },
+    { name = "lov",   label = T:t('new_rating_step_2.date'), default = params.values.date },
+    { name = "lovec", label = T:t('new_rating_step_2.hunter'), default = params.values.hunter },
+    { name = "zver",  label = T:t('new_rating_step_3.trophy'), default = T:t("title." .. params.code) },
     { name = "space", type = "separator" },
-    { name = "Kladné body", label = "Kladné body", default = calculator.kladne },
-    { name = "Záporné body", label = "Záporné body", default = calculator.zaporne },
-    { name = "Celkem", label = "Celkem", default = calculator.soucet },
-    { name = "Medaile", label = "Medaile", default = T:t("new_rating_step_3.medal." .. calculator.medal) },
+    { name = "Kladné body",  label = T:t('new_rating_step_3.positive_points'), default = calculator.kladne },
+    { name = "Záporné body", label = T:t('new_rating_step_3.negative_points'), default = calculator.zaporne },
+    { name = "Celkem",  label = T:t('new_rating_step_3.total_points'), default = calculator.soucet },
+    { name = "Medaile", label = T:t('dashboard.medal'), default = T:t("new_rating_step_3.medal." .. calculator.medal) },
     { name = "medal", type = "image", filename = "assets/" .. calculator.medal .. ".png", height = 80, lineColor = {1,1,1} }
   }
 end
