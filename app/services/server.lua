@@ -31,7 +31,6 @@ return {
   publishRating = function(rating, onSuccess, onFail)
     if rating and appconfig.api_server_url then
       local xml = XML.generate(rating)
-      print(xml)
       sendXml(xml, rating.id, onSuccess, onFail)
     end
   end

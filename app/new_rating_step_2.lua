@@ -70,6 +70,7 @@ function scene:redrawScene()
       Rating.orderBy = 'created_at DESC'
       local lastRating = Rating:first()
       if lastRating then
+        fields[1].default = ""
         fields[2].default = lastRating.hunter
         fields[3].default = lastRating.place
         fields[4].default = lastRating.country
@@ -107,6 +108,9 @@ function scene:show(event)
     if not event.params.without_reloading then
       self.params = event.params
       fields[7].images = {}
+      if form then
+        form:setValues({ age   = "" })
+      end
     end
     self:redrawScene(event)
   end

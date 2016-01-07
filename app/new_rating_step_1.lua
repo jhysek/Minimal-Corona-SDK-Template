@@ -100,8 +100,8 @@ function scene:redrawScene()
         composer.gotoScene("app.new_rating_step_2", {
           effect = "slideLeft",
           params = {
-            calculator = calculator,
-            code   = self.params.code,
+            calculator  = calculator,
+            code        = self.params.code,
             back_params = self.params
           }
         })
