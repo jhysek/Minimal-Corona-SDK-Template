@@ -23,7 +23,7 @@ local function prepareFormDefinition(params)
     field.label = T:t((params.translation_code or params.code) .. ".fields." .. field.name)
     if field.type ~= 'boolean' then
       field.validations = { presence = true, numeric = true }
-      field.input_type = "number"
+      field.input_type = "decimal"
     end
     result[#result + 1] = field
   end

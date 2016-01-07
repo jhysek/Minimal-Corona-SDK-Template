@@ -54,10 +54,9 @@ return {
     local result = "<type-evaluation>" .. get_xml_code(code) .. "</type-evaluation>"
 
     local date_parts = rating.date:split(".")
-    local date = string.format("%02d", date_parts[1]) ..
+    local date = string.format("%04d", date_parts[3]) ..
                  string.format("%02d", date_parts[2]) ..
-                 string.format("%04d", date_parts[3])
-
+                 string.format("%02d", date_parts[1])
 
     result = result .. "<age>"     .. (rating.age or "") .. "</age>"
     result = result .. "<dt-hunt>" .. date           .. "</dt-hunt>"
@@ -77,9 +76,9 @@ return {
     result = result .. "<evaluation-data>" .. evaluation_data .. "</evaluation-data>"
 
     -- outputs -----------------------------------------------------------------
-    result = result .. "<evaluation-plus>"  .. (rating.positive or "") .. "</evaluation-plus>"
-    result = result .. "<evaluation-minus>" .. (rating.negative or "") .. "</evaluation-minus>"
-    result = result .. "<evaluation-sum>"   .. (rating.rating or "") .. "</evaluation-sum>"
+    result = result .. "<evaluation-plus>"  .. (rating.positive and rating.positive * 1000 or "") .. "</evaluation-plus>"
+    result = result .. "<evaluation-minus>" .. (rating.negative and rating.negative * 1000 or "") .. "</evaluation-minus>"
+    result = result .. "<evaluation-sum>"   .. (rating.rating and rating.rating * 1000 or "") .. "</evaluation-sum>"
     result = result .. "<medal>"            .. (MEDAL_NUMBERS[rating.medal] or "")   .. "</medal>"
 
     -- pictures ----------------------------------------------------------------
@@ -91,6 +90,6 @@ return {
     result = result .. "<smart-id>"   .. rating.id .. tostring(rating.created_at) .. "</smart-id>"
     result = result .. os_fields()
 
-    return "<xml-trophy>" .. result .. "</xml-trophy>"
+    return "<?xml version='1.0' encoding='UTF-8'?><xml-trophy>" .. result .. "</xml-trophy>"
   end
 }

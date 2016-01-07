@@ -72,7 +72,7 @@ local function onRowRender(event)
       text = rating.date or "",
       font = native.systemFont,
       fontSize = 14,
-      width = 58,
+      width = 56,
       align = "left",
       parent = row
     })
@@ -155,7 +155,7 @@ redrawList = function(group)
   list = widget.newTableView({
     top = navigationBar.bottom + 5,
     width = _AW,
-    height = _AH - navigationBar.height - 60 - banner_height,
+    height = _AH - navigationBar.height - 60 - banner_height - 100,
     onRowRender = onRowRender
   })
 
@@ -193,6 +193,19 @@ function scene:redrawScene()
     title   = T:t("dashboard.title")
   })
   sceneGroup:insert(navigationBar)
+
+  local text = display.newText
+  {
+    parent = sceneGroup,
+    text = T:t("dashboard.info"),
+    x = _W / 2,
+    width = _AW - 30,
+    y = _B - 135 - banner_height,
+    font = native.systemFont,
+    fontSize = 12,
+    align = 'center'
+  }
+  text:setFillColor(0.1, 0.1, 0.1)
 
   buttonGroup = display.newGroup()
   buttonGroup.y = _B - 40

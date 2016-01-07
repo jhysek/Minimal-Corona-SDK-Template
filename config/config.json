@@ -1,5 +1,5 @@
 {
-  "version": "0.9.16",
+  "version": "0.9.18",
   "main_color": "#787A40",
   "api_server_url": "http://trophies-assessment.com/collector/xml",
   "inapp_code_all": "all",
