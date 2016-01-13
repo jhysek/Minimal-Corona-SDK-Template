@@ -206,6 +206,7 @@ function scene:redrawScene()
     align = 'center'
   }
   text:setFillColor(0.1, 0.1, 0.1)
+  text:addEventListener('tap', function() system.openURL(appconfig.www) end)
 
   buttonGroup = display.newGroup()
   buttonGroup.y = _B - 40

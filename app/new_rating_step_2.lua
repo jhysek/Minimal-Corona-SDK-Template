@@ -70,10 +70,14 @@ function scene:redrawScene()
       Rating.orderBy = 'created_at DESC'
       local lastRating = Rating:first()
       if lastRating then
-        fields[1].default = ""
-        fields[2].default = lastRating.hunter
-        fields[3].default = lastRating.place
-        fields[4].default = lastRating.country
+--        fields[3].default = lastRating.hunter
+        formValues.hunter = formValues.hunter or lastRating.hunter
+
+--        fields[5].default = lastRating.place
+        formValues.place = formValues.place or lastRating.place
+
+--        fields[6].default  = lastRating.country
+        formValues.country = formValues.country or lastRating.country
       end
 
       form = Form:new(group, fields, { height = _AH - 65 - banner_height - head_height })
@@ -105,12 +109,20 @@ end
 function scene:show(event)
   local group = self.view
   if event.phase == "will" then
+    print(inspect(event.params))
+    if event.params and event.params.clear then
+      if form then
+        fields[1].default = ""
+        fields[1].value   = ""
+        print("CLEARING")
+        form:removeSelf()
+        form = nil
+      end
+    end
+
     if not event.params.without_reloading then
       self.params = event.params
       fields[7].images = {}
-      if form then
-        form:setValues({ age   = "" })
-      end
     end
     self:redrawScene(event)
   end

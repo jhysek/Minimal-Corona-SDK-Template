@@ -48,13 +48,16 @@ Runtime:addEventListener("orientation", function()
   current_scene:redrawScene()
 end)
 
--- Runtime:addEventListener('key', function (event)
---    if event.keyName == 's' and event.phase == 'down' then
---      local scene = composer.getScene(composer.getSceneName("current"))
---      if scene and scene.view then
---        print("SAVING TO " .. display.pixelWidth .. 'x' .. display.pixelHeight .. '_' .. math.floor(system.getTimer()) .. '.png')
---        display.save(scene.view, display.pixelWidth .. 'x' .. display.pixelHeight .. '_' .. math.floor(system.getTimer()) .. '.png')
---        return true
---      end
---    end
--- end)
+
+-- zmena jazyka - jen pro screenshoty
+Runtime:addEventListener('key', function (event)
+  if event.keyName == 'l' and event.phase == 'down' then
+    if language == 'cs' then
+      language = "en"
+    else
+      language = "cs"
+    end
+    local current_scene = composer.getScene(composer.getSceneName("current"))
+    current_scene:redrawScene()
+  end
+end)

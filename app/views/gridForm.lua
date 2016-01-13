@@ -79,6 +79,13 @@ function Form:clear()
   end
 end
 
+function Form:clearValue(key)
+  local input = self.inputs[key]
+  if input then
+    input:clear()
+  end
+end
+
 -- validace konkretniho inputu -------------------------------------------------
 function Form:inputIsValid(input, validations)
   if input then

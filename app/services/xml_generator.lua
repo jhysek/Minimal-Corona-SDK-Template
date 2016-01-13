@@ -70,7 +70,7 @@ return {
     InputValue.orderBy = "key"
     InputValue:where({rating_id = rating.id}, function(input)
       tag_name = rating.animal .. "-" .. input.key
-      evaluation_data = evaluation_data  .. "<" .. tag_name .. ">" .. (input.value or "") .. "</".. tag_name ..">"
+      evaluation_data = evaluation_data  .. "<" .. tag_name .. ">" .. ((input.value and input.value * 1000) or "") .. "</".. tag_name ..">"
     end)
 
     result = result .. "<evaluation-data>" .. evaluation_data .. "</evaluation-data>"

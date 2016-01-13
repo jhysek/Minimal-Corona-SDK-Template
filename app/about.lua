@@ -24,6 +24,10 @@ function scene:newText(x, y, text, options)
   )
   label.anchorY = 0
 
+  if options.url then
+    label:addEventListener("tap", function() system.openURL(options.url) end)
+  end
+
   Color.setFillHexColor(label, options.color or "#333333")
   return label
 end
@@ -48,7 +52,7 @@ function scene:redrawScene()
 
   local l4 = self:newText(_W/2, _T + 200, T:t("about.info1"))
   local l5 = self:newText(_W/2, _T + 230, T:t("about.info2"))
-  local l6 = self:newText(_W/2, l5.y + l5.height + 10, T:t("about.info3"))
+  local l6 = self:newText(_W/2, l5.y + l5.height + 10, T:t("about.info3"), { url = appconfig.www })
   local l7 = self:newText(_W/2, l6.y + l6.height + 10, T:t("about.info4"))
 
   local icon = display.newImage(self.sceneGroup, "assets/icon.png", _W / 2, l7.y + l7.height + 30)

@@ -102,7 +102,8 @@ function scene:redrawScene()
           params = {
             calculator  = calculator,
             code        = self.params.code,
-            back_params = self.params
+            back_params = self.params,
+            clear       = true
           }
         })
       end
