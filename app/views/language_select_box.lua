@@ -39,7 +39,7 @@ function LanguageSelectBox:redrawButtons()
 end
 
 function LanguageSelectBox:onCreate()
-  self:newText(T:t('language_select.title'),
+  self.title = self:newText(T:t('language_select.title'),
                _W / 2,
                self.bg.y - self.bg.height / 2 + 25,
                {
@@ -49,6 +49,7 @@ end
 
 function LanguageSelectBox:onShow()
   self:redrawButtons()
+  self.title.text = T:t("language_select.title")
 end
 
 
