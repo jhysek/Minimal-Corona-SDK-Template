@@ -1,7 +1,8 @@
-local class    = require "lib.middleclass"
 local widget   = require "widget"
 
-
+local class    = require "lib.middleclass"
+local Color    = require "lib.Color"
+local _        = require "lib.underscore"
 local MessageBox = class("MessageBox")
 
 function MessageBox:onCreate()
@@ -33,7 +34,7 @@ function MessageBox:redraw()
   self.group:insert(self.detailGroup)
 
   -- background rect -----------------------------------------------------------
-  local bg = display.newRect(_W / 2, _H / 2 - 20, _AW - 20, self.options.height or 280)
+  local bg = display.newRect(_W / 2, _H / 2 - 20, math.min(_AW - 20, 500), self.options.height or 280)
   self.bg = bg
   bg:setFillColor(1, 1, 1, 1)
   bg:setStrokeColor(0.5, 0.5, 0.5)
@@ -111,6 +112,29 @@ end
 function MessageBox:destroy()
   self.group:removeSelf()
 end
+
+function MessageBox:newText(text, x, y, options)
+  options = options or {}
+
+  local func = display.newText
+  if options.emboss then
+    func = display.newEmbossedText
+  end
+
+  local label = func(_.extend({
+    parent = self.detailGroup,
+    text = text,
+    x = x,
+    y = y,
+    font = native.systemFont,
+    fontSize = 15,
+    align = "left"
+  }, options))
+  Color.setFillHexColor(label, options.color or "#000000")
+
+  return label
+end
+
 
 
 return MessageBox

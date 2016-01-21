@@ -1,8 +1,8 @@
 {
-  "version": "0.9.25",
+  "version": "0.9.30",
   "main_color": "#787A40",
   "www": "http://www.trophies-assessment.com",
-  "api_server_url": "http://trophies-assessment.com/collector/xml",
+  "api_server_url": "http://trophies-assessment.com/collector",
   "inapp_code_all": "all",
   "admob_code": {
     "ios": "ca-app-pub-8169695902062470/3544855946",

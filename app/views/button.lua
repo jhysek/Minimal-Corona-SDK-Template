@@ -16,7 +16,8 @@ local colors = {
   default = { 0.2, 0.8, 0.2, 1 }
 }
 
-function BlockBtn:initialize(parent, y, text, color, onPress, width, x)
+function BlockBtn:initialize(parent, y, text, color, onPress, width, x, options)
+  local options = options or {}
   self.displayObject = widget.newButton({
     label = text,
     x = x or (_W / 2),
@@ -27,7 +28,7 @@ function BlockBtn:initialize(parent, y, text, color, onPress, width, x)
     fillColor = { default = colors[color], over = colors[color] },
     labelColor = { default={ 1, 1, 1 }, over={ 0, 0, 0, 0.5 } },
     font = "OpenSans-Light",
-    fontSize = 12,
+    fontSize = options.fontSize or 12,
     onRelease = onPress,
     onPress = function(e) return true end
   })

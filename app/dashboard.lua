@@ -8,6 +8,7 @@ local NavBar   = require "app.views.navBar"
 local Button   = require "app.views.button"
 local XML      = require "app.services.xml_generator"
 local Server   = require "app.services.server"
+local LangSelect = require "app.views.language_select_box"
 --------------------------------------------------------------------------------
 
 local scene = composer.newScene()
@@ -155,7 +156,7 @@ redrawList = function(group)
   list = widget.newTableView({
     top = navigationBar.bottom + 5,
     width = _AW,
-    height = _AH - navigationBar.height - 60 - banner_height - 100,
+    height = _AH - navigationBar.height - 100 - banner_height,
     onRowRender = onRowRender
   })
 
@@ -190,23 +191,13 @@ function scene:redrawScene()
   group:insert(sceneGroup)
 
   navigationBar = NavBar.create({
-    title   = T:t("dashboard.title")
+    title    = T:t("dashboard.title"),
+    rightBtn = {
+      image = "assets/icon_settings.png",
+      onTap = function() self.languageSelect:show() end
+    }
   })
   sceneGroup:insert(navigationBar)
-
-  local text = display.newText
-  {
-    parent = sceneGroup,
-    text = T:t("dashboard.info"),
-    x = _W / 2,
-    width = _AW - 30,
-    y = _B - 135 - banner_height,
-    font = native.systemFont,
-    fontSize = 12,
-    align = 'center'
-  }
-  text:setFillColor(0.1, 0.1, 0.1)
-  text:addEventListener('tap', function() system.openURL(appconfig.www) end)
 
   buttonGroup = display.newGroup()
   buttonGroup.y = _B - 40
@@ -214,11 +205,25 @@ function scene:redrawScene()
   local newRatingBtn = Button:new(buttonGroup, 0, T:t("dashboard.new"), "main", newRating, (_AW - 60) / 2, _L + _AW / 2 - (_AW - 60) / 4 - 10)
   local aboutAppBtn = Button:new(buttonGroup, 0, T:t("dashboard.about"), "main", aboutScene, (_AW - 60) / 2, _L + _AW / 2 + (_AW - 60) / 4 + 10)
 
-  redrawList(sceneGroup)
   showAd("banner", "bottom")
+  redrawList(sceneGroup)
   buttonGroup.y = _B - 40 - banner_height
   buttonGroup:toFront()
 
+  local text = display.newText
+  {
+    parent = sceneGroup,
+    text = T:t("dashboard.info"),
+    x = _W / 2,
+    width = _AW - 30,
+    y = buttonGroup.y - 30,
+    font = native.systemFont,
+    fontSize = 12,
+    align = 'center'
+  }
+  text.anchorY = 1
+  text:setFillColor(0.1, 0.1, 0.1)
+  text:addEventListener('tap', function() system.openURL(appconfig.www) end)
 
   if Rating:count() == 0 then
     list.alpha = 0
@@ -245,6 +250,10 @@ function scene:show(event)
   end
 end
 
+function scene:create(event)
+  self.languageSelect = LangSelect:new(self.view)
+end
+
 Runtime:addEventListener("upload_finished", function()
   timer.performWithDelay(1000, function()
     if scene.redrawing or not list then
@@ -256,6 +265,7 @@ Runtime:addEventListener("upload_finished", function()
     end
   end)
 end)
+
 
 scene:addEventListener( "create", scene)
 scene:addEventListener( "show", scene)

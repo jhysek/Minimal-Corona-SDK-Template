@@ -93,13 +93,17 @@ end
 local function createNavBarRightBtn(group, options)
   if options then
     local bg = display.newRect(group, _R - 30, _T + 33, 60, 60)
-    bg.isVisible = false
+    bg.isVisible     = false
     bg.isHitTestable = true
 
-    local rightBtn = display.newImageRect(group, options.image, 25, 25, 0, 5)
-    rightBtn.x = _R - 30
-    rightBtn.y = _T + 30
-    Color.setFillHexColor(rightBtn, appconfig.main_color)
+    -- if options.image then
+      local rightBtn = display.newImageRect(group, options.image, 25, 25, 0, 5)
+      if rightBtn then
+        rightBtn.x = _R - 30
+        rightBtn.y = _T + 30
+        -- Color.setFillHexColor(rightBtn, appconfig.main_color)
+      end
+    -- end
 
     if options.onTap then
       bg:addEventListener("tap", function(e) options.onTap(e); return true end)

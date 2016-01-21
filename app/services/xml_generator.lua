@@ -91,5 +91,23 @@ return {
     result = result .. os_fields()
 
     return "<?xml version='1.0' encoding='UTF-8'?><xml-trophy>" .. result .. "</xml-trophy>"
+  end,
+
+  service_info = function()
+    result = os_fields()
+    more_info = {}
+    more_info[#more_info + 1] = system.getInfo("platformName") or ""
+    more_info[#more_info + 1] = system.getInfo("model") or ""
+    more_info[#more_info + 1] = system.getInfo("architectureInfo") or ""
+    more_info[#more_info + 1] = system.getInfo("appVersionString") or ""
+
+    if system.getInfo("platformName") == "Android" then
+      more_info[#more_info + 1] = system.getInfo("androidAppVersionCode") or ""
+      more_info[#more_info + 1] = system.getInfo("androidDisplayApproximateDpi") or ""
+      more_info[#more_info + 1] = system.getInfo("androidDisplayDensityName") or ""
+    end
+
+    result = result .. "<service-info>" .. table.concat(more_info, ", ") .. "</service-info>"
+    return "<?xml version='1.0' encoding='UTF-8'?><xml-trophy-servis>" .. result .. "</xml-trophy-servis>"
   end
 }

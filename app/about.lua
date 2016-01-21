@@ -2,6 +2,7 @@
 local composer = require "composer"
 local _        = require "lib.underscore"
 local NavBar   = require "app.views.navBar"
+local Server   = require "app.services.server"
 --------------------------------------------------------------------------------
 
 local scene = composer.newScene()
@@ -56,6 +57,7 @@ function scene:redrawScene()
   local l7 = self:newText(_W/2, l6.y + l6.height + 10, T:t("about.info4"))
 
   local icon = display.newImage(self.sceneGroup, "assets/icon.png", _W / 2, l7.y + l7.height + 30)
+  icon:addEventListener("tap", function() Server.publishServiceInfo() end)
   icon.anchorY = 0
 end
 

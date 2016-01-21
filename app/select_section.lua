@@ -26,6 +26,7 @@ local form_definitions
 --------------------------------------------------------------------------------
 
 local function activatedAll()
+
   local all = Purchase:count({ product = appconfig.inapp_code_all }) > 0
   local each = true
 

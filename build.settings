@@ -25,11 +25,20 @@ settings = {
         UIStatusBarHidden = true,
         UIPrerenderedIcon = false, -- set to false for "shine" overlay
 
-          CFBundleLocalizations =
-          {
-            "Czech",
-            "English",
-          },
+        NSAppTransportSecurity = {
+          NSExceptionDomains = {
+            ["trophies-assessment.com"] = {
+              NSIncludesSubdomains = true,
+              NSThirdPartyExceptionAllowsInsecureHTTPLoads = true
+            },
+          }
+        },
+
+        CFBundleLocalizations =
+        {
+          "Czech",
+          "English",
+        },
 
         -- http://docs.coronalabs.com/guide/distribution/buildSettings/index.html#appicons
           CFBundleIconFiles = {
