@@ -5,8 +5,9 @@ local translations =
 {
   ["languages"] =
   {
-    ["en"] = "english",
     ["cs"] = "čeština",
+    ["de"] = "deutch",
+    ["en"] = "english",
   },
 }
 

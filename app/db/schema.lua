@@ -40,8 +40,10 @@ Purchase = db:newModel("purchases", {
 })
 
 Setting = db:newModel("settings", {
-  "premium"
+  "premium",
+  "with_ads"
 })
+db.db:exec("ALTER TABLE settings ADD COLUMN with_ads")
 
 Rating:all(function(rating)
   if not rating.sort_date then

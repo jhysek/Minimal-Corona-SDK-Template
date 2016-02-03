@@ -2,7 +2,7 @@ local json    = require "json"
 local Message = require "app.views.message"
 local XML     = require "app.services.xml_generator"
 
-local function activateAll()
+local function activateAll(with_ads)
   form_definitions = loadTable("config/form_definitions.json", system.ResourceDirectory) or {sections = {}}
 
   for i = 1, #form_definitions.sections do
@@ -10,6 +10,22 @@ local function activateAll()
     if definition.inapp_code then
       Purchase:insert({ product = definition.inapp_code });
     end
+  end
+
+  if with_ads then
+    local setting = Setting:first()
+
+    if setting then
+      Setting:update(setting.id, { with_ads = 1 })
+    else
+      Setting:insert({ with_ads = 1})
+    end
+  else
+    Setting:delete()
+    Setting:insert({ premium = 1 })
+    ads.hide()
+    premium = true
+    banner_height = 0
   end
 
   Message.toast(T:t("messages.service_info_activated"), { color = "#448800" })
@@ -25,11 +41,20 @@ local function sendServiceInfo(xml, onSuccess, onFail)
       end
     else
       local response = json.decode(event.response)
-      print(inspect(response))
-      if response.enable_voucher == 1 then
-        activateAll()
-      else
-        Message.toast(T:t("messages.service_info_sent"), { color = "#448800" })
+
+      if response and response.enable_voucher == 1 then
+         activateAll()
+         onSuccess()
+
+      elseif response and response.enable_voucher == 2 then
+        activateAll(true)
+        onSuccess()
+
+      elseif response then
+         Message.toast(T:t("messages.service_info_sent"), { color = "#448800" })
+       else
+         Message.toast(T:t("messages.service_info_fail"), { color = "#880000" })
+         print(event.response)
       end
     end
   end,

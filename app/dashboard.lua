@@ -43,18 +43,24 @@ local function onRowRender(event)
       {T:t("dashboard.date"), _L + 10},
       {T:t("dashboard.hunter"), _L + 65},
       {T:t("dashboard.trophy"), _L + _AW / 2 - 10},
-      {T:t("dashboard.points"), _L + _AW / 4 * 3 - 40},
-      {T:t("dashboard.medal"), _R - 80},
+      {T:t("dashboard.points"), _R - 100},
+--      {T:t("dashboard.medal"), _R - 80},
     }
 
     for i = 1, #legend_fields do
       local field = legend_fields[i]
+      local field_width = _AW;
+      if i < #legend_fields then
+        nextField = legend_fields[i + 1];
+        field_width = nextField[2] - field[2] - 5
+      end
+
       local legend = display.newText
       {
         parent = row,
         x = field[2],
         y = 30,
-        width = _AW,
+        width = field_width,
         font = native.systemFont,
         fontSize = 13,
         text = field[1],
@@ -73,7 +79,7 @@ local function onRowRender(event)
       text = rating.date or "",
       font = native.systemFont,
       fontSize = 14,
-      width = 56,
+      width = 50,
       align = "left",
       parent = row
     })
@@ -98,30 +104,34 @@ local function onRowRender(event)
       x = _L + _AW / 2 - 10,
       text = T:t("title." .. rating.animal),
       font = native.systemFont,
-      fontSize = 13,
-      width = 80,
+      fontSize = 12,
+      width = (_L + _AW / 4 * 3 - 15) - (_L + _AW / 2 - 10),
       align = "left",
       parent = row
     })
     section.anchorX = 0
     section:setFillColor(0,0,0)
 
-    local points = display.newText({
+    local medal
+    if rating.medal and rating.medal ~= 'none' then
+      medal = display.newImage(row, "assets/" .. rating.medal .. ".png", _R - 65, 30)
+      Scaling.scaleToFit(medal, 35, 35)
+    end
+
+    local points = display.newEmbossedText({
       y = 30,
-      x = _L + _AW / 4 * 3 - 15,
+      x = _R - 65, --_L + _AW / 4 * 3 - 15,
       text = rating.rating,
       font = native.systemFont,
       fontSize = 13,
       width = 50,
-      align = "right",
-      parent = row
+      align = "center",
+      parent = row,
     })
-    points.anchorX = 1
-    points:setFillColor(0,0,0)
-
-    if rating.medal and rating.medal ~= 'none' then
-      local medal = display.newImage(row, "assets/" .. rating.medal .. ".png", _R - 65, 30)
-      Scaling.scaleToFit(medal, 35, 35)
+    if medal then
+      points:setFillColor(1,1,1)
+    else
+      points:setFillColor(0,0,0)
     end
 
     local syncBg  = display.newRect(row, _R, 30, 70, row.height)

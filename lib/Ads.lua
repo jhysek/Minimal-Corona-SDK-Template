@@ -1,8 +1,8 @@
 -- ads -----------------------------------------------------
 ads = require "ads"
 
--- local setting = Setting:first() or { premium = false }
-premium = Purchase:count() > 0
+local setting = Setting:first() or { premium = false, with_ads = true }
+premium = Purchase:count() > 0 and not setting.with_ads
 banner_height = 0
 
 local ads_provider
