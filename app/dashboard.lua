@@ -295,12 +295,15 @@ function scene:redrawScene()
       text = T:t("dashboard.no_ratings"),
       x = _W / 2,
       width = _AW - 30,
-      y = _H / 2,
+      y = _H / 4,
       font = native.systemFont,
       fontSize = 15,
       align = 'center'
     }
     text:setFillColor(0.1, 0.1, 0.1)
+
+    local icon = display.newImage(sceneGroup, "assets/icon.png", _W / 2, text.y + text.height + 30)
+    icon.anchorY = 0
   end
 end
 
