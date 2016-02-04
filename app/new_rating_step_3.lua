@@ -17,7 +17,7 @@ local code
 local backBtn
 local sceneGroup
 
-local function publish()
+local function save_trophy()
   local date_parts = values.date:split(".")
   local sort_date = string.format("%04d", date_parts[3]) ..
                     string.format("%02d", date_parts[2]) ..
@@ -45,13 +45,37 @@ local function publish()
   for key, val in pairs(calculator.inputs) do
     InputValue:insert({ key = key, value = val, rating_id = rating_id })
   end
+  return rating_id
+end
 
-  if appconfig.api_server_url then
-    local rating = Rating:get(rating_id)
-    Server.publishRating(rating, function()
-      Runtime:dispatchEvent({name = "upload_finished", target = rating.id})
+
+local function publish()
+  native.showAlert(
+    T:t("query.for.send1"),
+    T:t("query.for.send2"),
+    {
+      T:t("query.for.send.yes"),
+      T:t("query.for.send.delete"),
+      T:t("query.for.send.no")
+    },
+    function(event)
+      if event.action == "clicked" then
+        -- klik na tlacitko odeslat - ulozime a odesleme
+        if event.index == 1 then
+          local rating_id = save_trophy()
+          if appconfig.api_server_url then
+            local rating = Rating:get(rating_id)
+            Server.publishRating(rating, function()
+              Runtime:dispatchEvent({name = "upload_finished", target = rating.id})
+            end)
+          end
+
+        -- klik na tlacitko neodesilat - jen ulozime
+        elseif event.index == 3 then
+          save_trophy()
+        end
+      end
     end)
-  end
 
   composer.gotoScene("app.dashboard", {
     effect = "slideDown"

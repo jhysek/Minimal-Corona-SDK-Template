@@ -35,11 +35,13 @@ end
 local function sendServiceInfo(xml, onSuccess, onFail)
   network.request(appconfig.api_server_url .. "/service-info", "POST", function(event)
     if event.isError then
+      print("SERVICE_INFO POST ERROR... ");
       Message.toast(T:t("messages.service_info_fail"), { color = "#880000" })
       if onFail then
         onFail()
       end
     else
+      print(inspect(event))
       local response = json.decode(event.response)
 
       if response and response.enable_voucher == 1 then
@@ -52,7 +54,7 @@ local function sendServiceInfo(xml, onSuccess, onFail)
 
       elseif response then
          Message.toast(T:t("messages.service_info_sent"), { color = "#448800" })
-       else
+      else
          Message.toast(T:t("messages.service_info_fail"), { color = "#880000" })
          print(event.response)
       end
@@ -96,6 +98,13 @@ return {
   publishRating = function(rating, onSuccess, onFail)
     if rating and appconfig.api_server_url then
       local xml = XML.generate(rating)
+      sendXml(xml, rating.id, onSuccess, onFail)
+    end
+  end,
+
+  deleteRating = function(rating, onSuccess, onFail)
+    if rating and appconfig.api_server_url then
+      local xml = XML.generate(rating, true)
       sendXml(xml, rating.id, onSuccess, onFail)
     end
   end,

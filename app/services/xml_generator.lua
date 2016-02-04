@@ -47,7 +47,7 @@ end
 
 
 return {
-  generate = function(rating)
+  generate = function(rating, should_delete)
     local code = rating.animal or ""
 
     print(inspect(rating))
@@ -87,7 +87,7 @@ return {
     result = result .. "<pict-3>" .. encodePhoto(rating.picture1) .. "</pict-3>"
 
     -- OS info -----------------------------------------------------------------
-    result = result .. "<smart-id>"   .. rating.id .. tostring(rating.created_at) .. "</smart-id>"
+    result = result .. "<smart-id>"   .. (should_delete and "DELETE" or "") .. rating.id .. tostring(rating.created_at) .. "</smart-id>"
     result = result .. os_fields()
 
     return "<?xml version='1.0' encoding='UTF-8'?><xml-trophy>" .. result .. "</xml-trophy>"

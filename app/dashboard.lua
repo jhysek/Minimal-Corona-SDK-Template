@@ -118,6 +118,7 @@ local function onRowRender(event)
       Scaling.scaleToFit(medal, 35, 35)
     end
 
+
     local points = display.newEmbossedText({
       y = 30,
       x = _R - 65, --_L + _AW / 4 * 3 - 15,
@@ -139,14 +140,65 @@ local function onRowRender(event)
     syncBg.isHitTestable = true
     syncBg.isVisible = false
     syncBg:addEventListener("tap", function(e)
-      Server.publishRating(rating, function()
-        redrawList(sceneGroup)
-      end)
+      if rating.sync_state == 'ok' then
+        native.showAlert(
+          T:t("query.next.send1"), "",
+          {
+            T:t("query.for.next.update"),
+            T:t("query.for.next.deletesrv"),
+            T:t("query.for.next.deletesmart"),
+            T:t("query.for.next.storno")
+          },
+          function(event)
+            if event.action == "clicked" then
+              if event.index == 1 then
+                Server.publishRating(rating, function()
+                redrawList(sceneGroup)
+              end)
+            elseif event.index == 2 then
+              Server.deleteRating(rating, function()
+                rating.sync_state = 'waiting'
+                Rating:update(rating.id, { sync_state = 'waiting' })
+                redrawList(sceneGroup)
+              end)
+            elseif event.index == 3 then
+              if rating.id then
+                Rating:delete({ id = rating.id })
+                redrawList(sceneGroup)
+              end
+            end
+          end
+        end)
+
+      else
+        native.showAlert(
+          T:t("query.for.send1"),
+          T:t("query.for.send2"),
+          {
+            T:t("query.for.send.yes"),
+            T:t("query.for.send.delete"),
+            T:t("query.for.send.no")
+          },
+          function(event)
+            if event.action == 'clicked' then
+              if event.index == 1 then
+                Server.publishRating(rating, function()
+                  redrawList(sceneGroup)
+                end)
+              elseif event.index == 2 then
+                if rating.id then
+                  Rating:delete({ id = rating.id })
+                  redrawList(sceneGroup)
+                end
+              end
+            end
+          end)
+      end
     end)
 
     local filename = 'waiting'
     local rating = Rating:get(rating.id)
-    if rating.sync_state then
+    if rating.sync_state and rating.sync_state ~= 'waiting' then
       filename = rating.sync_state == 'ok' and "ok" or "exclamation"
     end
 
