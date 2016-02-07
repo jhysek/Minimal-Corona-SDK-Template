@@ -1,10 +1,12 @@
 --------------------------------------------------------------------------------
 local composer = require "composer"
+local File     = require "lib.copy_file"
 local NavBar   = require "app.views.navBar"
 local Form     = require "app.views.gridForm"
 local Message  = require "app.views.message"
 local Head     = require "app.views.head"
 --------------------------------------------------------------------------------
+
 local scene = composer.newScene()
 local navigationBar
 local form
@@ -19,8 +21,50 @@ local function prepareFormDefinition(params)
 
   for i = 1, #fields do
     local field = fields[i]
+    local field_code = (params.translation_code or params.code) .. ".fields." .. field.name
 
-    field.label = T:t((params.translation_code or params.code) .. ".fields." .. field.name)
+    field.label = T:t(field_code, "r")
+
+    local help_data_dir = "help/"
+    local path = system.pathForFile(help_data_dir .. field_code .. "T" .. language .. ".txt", system.ResourceDirectory )
+    if path then
+      local f = io.open( path )
+      if f then
+        field.help = field.help or {}
+        field.help.text = f:read("*a")
+        io.close(f)
+      end
+    end
+
+    local img_filename = help_data_dir .. field_code .. "P.png"
+    local img = display.newImage(img_filename)
+    if not img then
+      img_filename = help_data_dir .. field_code .. "P.jpg"
+      img = display.newImage(img_filename)
+    end
+
+    if img then
+      img:removeSelf()
+      field.help = field.help or {}
+      field.help.image = img_filename
+    end
+
+    if field.help then
+      field.help.action = function()
+        native.setKeyboardFocus(nil)
+        composer.showOverlay("app.views.input_help_overlay", {
+          isModal = true,
+          effect = "fromBottom",
+          params = {
+            title = field.label,
+            text  = field.help.text,
+            image = field.help.image,
+            dir   = system.ResourceDirectory
+          }
+        })
+      end
+    end
+
     if field.type ~= 'boolean' then
       field.validations = { presence = true, numeric = true }
       field.input_type = "decimal"

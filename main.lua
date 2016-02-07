@@ -45,4 +45,9 @@ Runtime:addEventListener("orientation", function()
 
   local current_scene = composer.getScene(composer.getSceneName("current"))
   current_scene:redrawScene()
+
+  local current_overlay = composer.getScene(composer.getSceneName("overlay"))
+  if current_overlay then
+    current_overlay:redrawScene()
+  end
 end)

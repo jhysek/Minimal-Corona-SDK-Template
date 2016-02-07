@@ -358,18 +358,32 @@ function Form:renderItem(event)
 
   -- label ---------------------------------------------------------------------
   if field.type ~= 'separator' and field.type ~= 'image' then
+    if field.help then
+      label_x = label_x + 20
+    end
     local label = display.newText({
       text = field.label or field.name or "NO LABEL",
       fontSize = label_font_size,
       font = native.systemFont,
       x = label_x,
-      width = label_width - 10,
+      width = label_width - 10 - (field.help and 30 or 0),
       align = label_align,
       y = 0 -- self.fieldList.options.item_height / 2
     })
     label.anchorX = 0
     Color.setFillHexColor(label, label_color)
     row:insert(label)
+
+    if field.help then
+      local icon = display.newImage(row, "assets/icon_help.png", - _AW / 2 + 20, 0)
+      icon.width = 30
+      icon.height = 30
+      icon.alpha = 0.8
+      icon:addEventListener("tap", function()
+        self.inputs[field.name]:hideKeyboard()
+        field.help.action()
+      end)
+    end
 
     if self.inputs[field.name] then
       self.inputs[field.name].label = label

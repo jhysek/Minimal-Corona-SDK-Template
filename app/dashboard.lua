@@ -142,7 +142,7 @@ local function onRowRender(event)
     syncBg:addEventListener("tap", function(e)
       if rating.sync_state == 'ok' then
         native.showAlert(
-          T:t("query.next.send1"), "",
+          T:t("query.for.next.send1"), "",
           {
             T:t("query.for.next.update"),
             T:t("query.for.next.deletesrv"),
